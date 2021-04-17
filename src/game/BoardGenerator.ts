@@ -10,15 +10,22 @@ export class BoardGenerator {
 
     while (invalidGame) {
       this.numbers = [];
+      const countsArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
       for (let i = 0; i < 9 * 9; i++) {
-        const randomNumber = Math.floor(Math.random() * 9) + 1;
+        let randomNumber = Math.floor(Math.random() * 9) + 1;
+        while (countsArray[randomNumber - 1] >= 9) {
+          randomNumber = Math.floor(Math.random() * 9) + 1;
+        }
+
+        countsArray[randomNumber - 1] += 1;
         this.numbers.push(randomNumber);
       }
 
       invalidGame = !this.judge.isValidGame(this.numbers);
       count++;
 
-      if (count > 99999) break;
+      if (count > 999) break;
     }
 
     console.log({ invalidGame });
