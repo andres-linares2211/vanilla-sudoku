@@ -1,7 +1,7 @@
 import { Judge } from './Judge.js';
 
 export class BoardGenerator {
-  private numbers: number[] = [];
+  private values: number[] = [];
   private judge: Judge = new Judge();
 
   generateBoard() {
@@ -11,35 +11,67 @@ export class BoardGenerator {
     const initialTime = performance.now();
 
     while (invalidGame) {
-      this.numbers = [];
-      const countsArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-      let currentRow = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.values = [];
 
       for (let i = 0; i < 9 * 9; i++) {
-        if (i % 9 === 0) currentRow = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const availableNumbersInRow = this.availableNumbersInRow(i);
+        const availableNumbersInColumn = this.availableNumbersInColumn(i);
+        const allAvailableNumbers = [...availableNumbersInRow, ...availableNumbersInColumn];
+        const possibleNumbers = [];
 
-        let randomNumber = Math.floor(Math.random() * 9) + 1;
-        while (countsArray[randomNumber - 1] >= 9 || currentRow[randomNumber - 1] === 1) {
-          randomNumber = Math.floor(Math.random() * 9) + 1;
+        for (let value of allAvailableNumbers) {
+          if (allAvailableNumbers.filter((number) => number === value).length === 2) {
+            possibleNumbers.push(value);
+          }
         }
 
-        countsArray[randomNumber - 1] += 1;
-        currentRow[randomNumber - 1] += 1;
+        if (possibleNumbers.length === 0) {
+          i = Math.floor(i / 9) * 9 - 1;
+          this.values = this.values.splice(0, i + 1);
+          continue;
+        }
 
-        this.numbers.push(randomNumber);
+        const randomIndex = Math.floor(Math.random() * possibleNumbers.length);
+
+        this.values.push(possibleNumbers[randomIndex]);
       }
 
-      invalidGame = !this.judge.isValidGame(this.numbers);
+      invalidGame = !this.judge.isValidGame(this.values);
       count++;
 
-      if (count > 99999) break;
+      if (count > 9999) break;
     }
 
     const finalTime = performance.now();
-    console.log(`Board generated in ${(finalTime / 1000).toFixed(2)}s`);
+    console.log(`Board generated in ${((finalTime - initialTime) / 1000).toFixed(2)}s`);
 
     console.log({ invalidGame, count });
 
-    return this.numbers;
+    return this.values;
+  }
+
+  private availableNumbersInColumn(index: number): number[] {
+    const firstIndexInColumn = index % 9;
+    const numbersInColumn = this.values.filter((_, index) => index % 9 === firstIndexInColumn);
+    const availableNumbers = [];
+
+    for (let i = 1; i <= 9; i++) {
+      if (!numbersInColumn.includes(i)) availableNumbers.push(i);
+    }
+
+    return availableNumbers;
+  }
+
+  private availableNumbersInRow(index: number): number[] {
+    const currentRow = Math.floor(index / 9);
+    const firstIndexInRow = currentRow * 9;
+    const numbersInRow = this.values.slice(firstIndexInRow, firstIndexInRow + 9);
+    const availableNumbers = [];
+
+    for (let i = 1; i <= 9; i++) {
+      if (!numbersInRow.includes(i)) availableNumbers.push(i);
+    }
+
+    return availableNumbers;
   }
 }
