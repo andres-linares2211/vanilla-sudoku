@@ -13,35 +13,23 @@ export class BoardGenerator {
       this.values = [];
 
       for (let i = 0; i < 9 * 9; i++) {
-        const availableNumbersInRow = this.availableNumbersInRow(i);
-        const availableNumbersInColumn = this.availableNumbersInColumn(i);
-        const availableNumbersInQuadrant = this.availableNumbersInQuadrant(i);
+        const possibleNumbers = this.getPossibleNumbers(i);
 
-        const allAvailableNumbers = [
-          ...availableNumbersInRow,
-          ...availableNumbersInColumn,
-          ...availableNumbersInQuadrant,
-        ];
-        const possibleNumbers = [];
-
-        for (let value of allAvailableNumbers) {
-          if (allAvailableNumbers.filter((number) => number === value).length === 3) {
-            possibleNumbers.push(value);
-          }
-        }
-
-        if (performance.now() - initialTime > 10000) {
+        if (performance.now() - initialTime > 100) {
           break;
         }
 
         if (possibleNumbers.length === 0) {
-          i = Math.floor(i / 9) * 9 - 1;
-          this.values = this.values.splice(0, i + 1);
+          const restartRowGeneration = () => {
+            i = Math.floor(i / 9) * 9 - 1;
+            this.values = this.values.splice(0, i + 1);
+          };
+
+          restartRowGeneration();
           continue;
         }
 
         const randomIndex = Math.floor(Math.random() * possibleNumbers.length);
-
         this.values.push(possibleNumbers[randomIndex]);
       }
 
@@ -49,12 +37,28 @@ export class BoardGenerator {
       if (performance.now() - initialTime > 10000) break;
     }
 
-    const finalTime = performance.now();
-    console.log(`Board generated in ${((finalTime - initialTime) / 1000).toFixed(2)}s`);
-
-    console.log({ invalidGame });
-
     return this.values;
+  }
+
+  private getPossibleNumbers(index: number): number[] {
+    const availableNumbersInRow = this.availableNumbersInRow(index);
+    const availableNumbersInColumn = this.availableNumbersInColumn(index);
+    const availableNumbersInQuadrant = this.availableNumbersInQuadrant(index);
+
+    const allAvailableNumbers = [
+      ...availableNumbersInRow,
+      ...availableNumbersInColumn,
+      ...availableNumbersInQuadrant,
+    ];
+    const possibleNumbers = [];
+
+    for (let value of allAvailableNumbers) {
+      if (allAvailableNumbers.filter((number) => number === value).length === 3) {
+        possibleNumbers.push(value);
+      }
+    }
+
+    return possibleNumbers;
   }
 
   private availableNumbersInQuadrant(index: number): number[] {
