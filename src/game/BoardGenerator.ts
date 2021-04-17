@@ -63,13 +63,11 @@ export class BoardGenerator {
 
   private availableNumbersInQuadrant(index: number): number[] {
     const currentQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index));
-    if (!currentQuadrant) return [];
-
-    const numbersInQuadrant = currentQuadrant.map((index) => this.values[index]);
+    const numbersInQuadrant = currentQuadrant?.map((index) => this.values[index]);
     const availableNumbers = [];
 
     for (let i = 1; i <= 9; i++) {
-      if (!numbersInQuadrant.includes(i)) availableNumbers.push(i);
+      if (!numbersInQuadrant?.includes(i)) availableNumbers.push(i);
     }
 
     return availableNumbers;
