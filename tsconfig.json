@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "outDir": "dist/src",
+    "rootDir": "src",
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "downlevelIteration": true
+  },
+  "exclude": ["src/**/*.spec.ts"]
+}
