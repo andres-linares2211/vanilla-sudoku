@@ -1,10 +1,10 @@
-import { QUADRANT_INDEXES } from './constants.js';
 import { Finder } from './Finder.js';
 import { Judge } from './Judge.js';
 
 export class BoardGenerator {
   private values: number[] = [];
-  private judge: Judge = new Judge();
+  private finder = new Finder();
+  private judge = new Judge();
 
   generateBoard() {
     let invalidGame = true;
@@ -14,7 +14,7 @@ export class BoardGenerator {
       this.values = [];
 
       for (let i = 0; i < 9 * 9; i++) {
-        const possibleNumbers = new Finder().getPossibleValues(i, this.values);
+        const possibleNumbers = this.finder.getPossibleValues(i, this.values);
 
         if (performance.now() - initialTime > 100) {
           break;
