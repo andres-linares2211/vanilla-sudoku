@@ -1,4 +1,5 @@
 import { QUADRANT_INDEXES } from './constants.js';
+import { Finder } from './Finder.js';
 import { Judge } from './Judge.js';
 
 export class BoardGenerator {
@@ -13,7 +14,7 @@ export class BoardGenerator {
       this.values = [];
 
       for (let i = 0; i < 9 * 9; i++) {
-        const possibleNumbers = this.getPossibleNumbers(i);
+        const possibleNumbers = new Finder().getPossibleValues(i, this.values);
 
         if (performance.now() - initialTime > 100) {
           break;
@@ -38,63 +39,5 @@ export class BoardGenerator {
     }
 
     return this.values;
-  }
-
-  private getPossibleNumbers(index: number): number[] {
-    const availableNumbersInRow = this.availableNumbersInRow(index);
-    const availableNumbersInColumn = this.availableNumbersInColumn(index);
-    const availableNumbersInQuadrant = this.availableNumbersInQuadrant(index);
-
-    const allAvailableNumbers = [
-      ...availableNumbersInRow,
-      ...availableNumbersInColumn,
-      ...availableNumbersInQuadrant,
-    ];
-    const possibleNumbers = [];
-
-    for (let value of allAvailableNumbers) {
-      if (allAvailableNumbers.filter((number) => number === value).length === 3) {
-        possibleNumbers.push(value);
-      }
-    }
-
-    return possibleNumbers;
-  }
-
-  private availableNumbersInQuadrant(index: number): number[] {
-    const currentQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index));
-    const numbersInQuadrant = currentQuadrant?.map((index) => this.values[index]);
-    const availableNumbers = [];
-
-    for (let i = 1; i <= 9; i++) {
-      if (!numbersInQuadrant?.includes(i)) availableNumbers.push(i);
-    }
-
-    return availableNumbers;
-  }
-
-  private availableNumbersInColumn(index: number): number[] {
-    const firstIndexInColumn = index % 9;
-    const numbersInColumn = this.values.filter((_, index) => index % 9 === firstIndexInColumn);
-    const availableNumbers = [];
-
-    for (let i = 1; i <= 9; i++) {
-      if (!numbersInColumn.includes(i)) availableNumbers.push(i);
-    }
-
-    return availableNumbers;
-  }
-
-  private availableNumbersInRow(index: number): number[] {
-    const currentRow = Math.floor(index / 9);
-    const firstIndexInRow = currentRow * 9;
-    const numbersInRow = this.values.slice(firstIndexInRow, firstIndexInRow + 9);
-    const availableNumbers = [];
-
-    for (let i = 1; i <= 9; i++) {
-      if (!numbersInRow.includes(i)) availableNumbers.push(i);
-    }
-
-    return availableNumbers;
   }
 }
