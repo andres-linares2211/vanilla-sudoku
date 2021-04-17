@@ -1,3 +1,4 @@
+import { QUADRANT_INDEXES } from './constants.js';
 import { Judge } from './Judge.js';
 
 export class BoardGenerator {
@@ -6,8 +7,6 @@ export class BoardGenerator {
 
   generateBoard() {
     let invalidGame = true;
-    let count = 0;
-
     const initialTime = performance.now();
 
     while (invalidGame) {
@@ -16,13 +15,23 @@ export class BoardGenerator {
       for (let i = 0; i < 9 * 9; i++) {
         const availableNumbersInRow = this.availableNumbersInRow(i);
         const availableNumbersInColumn = this.availableNumbersInColumn(i);
-        const allAvailableNumbers = [...availableNumbersInRow, ...availableNumbersInColumn];
+        const availableNumbersInQuadrant = this.availableNumbersInQuadrant(i);
+
+        const allAvailableNumbers = [
+          ...availableNumbersInRow,
+          ...availableNumbersInColumn,
+          ...availableNumbersInQuadrant,
+        ];
         const possibleNumbers = [];
 
         for (let value of allAvailableNumbers) {
-          if (allAvailableNumbers.filter((number) => number === value).length === 2) {
+          if (allAvailableNumbers.filter((number) => number === value).length === 3) {
             possibleNumbers.push(value);
           }
+        }
+
+        if (performance.now() - initialTime > 10000) {
+          break;
         }
 
         if (possibleNumbers.length === 0) {
@@ -37,17 +46,29 @@ export class BoardGenerator {
       }
 
       invalidGame = !this.judge.isValidGame(this.values);
-      count++;
-
-      if (count > 9999) break;
+      if (performance.now() - initialTime > 10000) break;
     }
 
     const finalTime = performance.now();
     console.log(`Board generated in ${((finalTime - initialTime) / 1000).toFixed(2)}s`);
 
-    console.log({ invalidGame, count });
+    console.log({ invalidGame });
 
     return this.values;
+  }
+
+  private availableNumbersInQuadrant(index: number): number[] {
+    const currentQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index));
+    if (!currentQuadrant) return [];
+
+    const numbersInQuadrant = currentQuadrant.map((index) => this.values[index]);
+    const availableNumbers = [];
+
+    for (let i = 1; i <= 9; i++) {
+      if (!numbersInQuadrant.includes(i)) availableNumbers.push(i);
+    }
+
+    return availableNumbers;
   }
 
   private availableNumbersInColumn(index: number): number[] {

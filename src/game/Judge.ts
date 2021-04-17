@@ -5,6 +5,7 @@ export class Judge {
     if (!this.validAmountOfValues(values)) return false;
     if (!this.validRows(values)) return false;
     if (!this.validColumns(values)) return false;
+    if (!this.validQuadrants(values)) return false;
 
     return true;
   }
@@ -74,6 +75,130 @@ export class Judge {
       validColumn7 &&
       validColumn8 &&
       validColumn9
+    );
+  }
+
+  private validQuadrants(values: number[]) {
+    const quadrant1 = [
+      values[0],
+      values[1],
+      values[2],
+      values[9],
+      values[10],
+      values[11],
+      values[18],
+      values[19],
+      values[20],
+    ];
+    const quadrant2 = [
+      values[3],
+      values[4],
+      values[5],
+      values[12],
+      values[13],
+      values[14],
+      values[21],
+      values[22],
+      values[23],
+    ];
+    const quadrant3 = [
+      values[6],
+      values[7],
+      values[8],
+      values[15],
+      values[16],
+      values[17],
+      values[24],
+      values[25],
+      values[26],
+    ];
+    const quadrant4 = [
+      values[27],
+      values[28],
+      values[29],
+      values[36],
+      values[37],
+      values[38],
+      values[45],
+      values[46],
+      values[47],
+    ];
+    const quadrant5 = [
+      values[30],
+      values[31],
+      values[32],
+      values[39],
+      values[40],
+      values[41],
+      values[48],
+      values[49],
+      values[50],
+    ];
+    const quadrant6 = [
+      values[33],
+      values[34],
+      values[35],
+      values[42],
+      values[43],
+      values[44],
+      values[51],
+      values[52],
+      values[53],
+    ];
+    const quadrant7 = [
+      values[54],
+      values[55],
+      values[56],
+      values[63],
+      values[64],
+      values[65],
+      values[72],
+      values[73],
+      values[74],
+    ];
+    const quadrant8 = [
+      values[57],
+      values[58],
+      values[59],
+      values[66],
+      values[67],
+      values[68],
+      values[75],
+      values[76],
+      values[77],
+    ];
+    const quadrant9 = [
+      values[60],
+      values[61],
+      values[62],
+      values[69],
+      values[70],
+      values[71],
+      values[78],
+      values[79],
+      values[80],
+    ];
+
+    const validQuadrant1 = this.allAreDifferent(quadrant1);
+    const validQuadrant2 = this.allAreDifferent(quadrant2);
+    const validQuadrant3 = this.allAreDifferent(quadrant3);
+    const validQuadrant4 = this.allAreDifferent(quadrant4);
+    const validQuadrant5 = this.allAreDifferent(quadrant5);
+    const validQuadrant6 = this.allAreDifferent(quadrant6);
+    const validQuadrant7 = this.allAreDifferent(quadrant7);
+    const validQuadrant8 = this.allAreDifferent(quadrant8);
+    const validQuadrant9 = this.allAreDifferent(quadrant9);
+
+    return (
+      validQuadrant1 &&
+      validQuadrant2 &&
+      validQuadrant3 &&
+      validQuadrant4 &&
+      validQuadrant5 &&
+      validQuadrant6 &&
+      validQuadrant7 &&
+      validQuadrant8 &&
+      validQuadrant9
     );
   }
 
