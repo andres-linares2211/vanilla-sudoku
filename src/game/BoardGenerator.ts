@@ -71,7 +71,9 @@ export class BoardGenerator {
       }
 
       invalidGame = !this.judge.isValidGame(this.cells);
-      if (performance.now() - initialTime > 1000) break;
+      if (performance.now() - initialTime > 100) break;
     }
+
+    if (invalidGame) this.buildFullBoard();
   }
 }
