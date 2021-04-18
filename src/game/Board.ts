@@ -13,8 +13,8 @@ export class Board {
     this.cells = new BoardGenerator().generateBoard();
   }
 
-  setValue(index: number, value: Cell) {
-    this.cells[index] = value;
+  setValue(cell: Cell, value: number | null) {
+    cell.value = value;
     this.onUpdate();
   }
 }

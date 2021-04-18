@@ -7,8 +7,14 @@ export function paintCell(cell: Cell, index: number): HTMLInputElement {
   setNumericAttributes(input, cell);
   setBorders(input, index);
   setAltBackground(input, index);
+  setStyles(input, cell);
 
   return input;
+}
+
+function setStyles(input: HTMLInputElement, cell: Cell) {
+  if (cell.error) input.classList.add('error');
+  else input.classList.remove('error');
 }
 
 function setNumericAttributes(input: HTMLInputElement, cell: Cell) {
@@ -18,7 +24,7 @@ function setNumericAttributes(input: HTMLInputElement, cell: Cell) {
 
   if (cell.value) {
     input.value = cell.value.toString();
-    input.readOnly = true;
+    if (!cell.manipulated) input.readOnly = true;
   }
 }
 
