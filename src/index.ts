@@ -54,10 +54,10 @@ function paint() {
     input.addEventListener('blur', unHightlight);
     input.addEventListener('mouseleave', unHightlight);
 
-    if (i % 27 < 9) input.classList.add('border-top');
-    if (i + 1 > 9 * 9 - 9) input.classList.add('border-bottom');
-    if ((i + 1) % 3 === 0) input.classList.add('border-right');
-    if (i % 9 === 0) input.classList.add('border-left');
+    if (i % 27 < 9) input.style.borderTopWidth = 'var(--thick-border-width)';
+    if (i + 1 > 9 * 9 - 9) input.style.borderBottomWidth = 'var(--thick-border-width)';
+    if ((i + 1) % 3 === 0) input.style.borderRightWidth = 'var(--thick-border-width)';
+    if (i % 9 === 0) input.style.borderLeftWidth = 'var(--thick-border-width)';
 
     inputs.push(input);
     app?.appendChild(input);
