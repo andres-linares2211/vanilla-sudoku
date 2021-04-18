@@ -20,16 +20,18 @@ export class Finder {
 
   private availableValuesInQuadrant(index: number, cells: Cell[]): number[] {
     const currentQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index));
-    const cellsInQuadrant = currentQuadrant?.map((index) =>
+    let cellsInQuadrant = currentQuadrant?.map((index) =>
       cells.find((cell) => cell.index === index)
     ) as Cell[];
+    cellsInQuadrant = cellsInQuadrant.filter((cell) => cell?.index !== index);
 
     return this.getAvailableNumbers(cellsInQuadrant);
   }
 
   private availableValuesInColumn(index: number, cells: Cell[]): number[] {
     const firstIndexInColumn = index % 9;
-    const cellsInColumn = cells.filter((cell) => cell.index % 9 === firstIndexInColumn);
+    let cellsInColumn = cells.filter((cell) => cell.index % 9 === firstIndexInColumn);
+    cellsInColumn = cellsInColumn.filter((cell) => cell.index !== index);
 
     return this.getAvailableNumbers(cellsInColumn);
   }
@@ -37,9 +39,10 @@ export class Finder {
   private availableValuesInRow(index: number, cells: Cell[]): number[] {
     const currentRow = Math.floor(index / 9);
     const firstIndexInRow = currentRow * 9;
-    const cellsInRow = cells.filter(
+    let cellsInRow = cells.filter(
       (cell) => cell.index >= firstIndexInRow && cell.index < firstIndexInRow + 9
     );
+    cellsInRow = cellsInRow.filter((cell) => cell.index !== index);
 
     return this.getAvailableNumbers(cellsInRow);
   }
