@@ -8,6 +8,6 @@ export class Board {
   }
 
   get values() {
-    return Object.freeze(this.numbers);
+    return this.numbers;
   }
 }

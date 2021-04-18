@@ -1,6 +1,7 @@
 .board input[type='number'] {
   --background: #fff;
   --background-alt: #ecf4f8;
+  --background-error: #ff3838;
 
   width: 100%;
   height: 100%;
@@ -34,5 +35,9 @@
     &--soft:not(.highlight) {
       background-color: #1e50ad3d;
     }
+  }
+
+  &.error {
+    background-color: var(--background-error) !important;
   }
 }
