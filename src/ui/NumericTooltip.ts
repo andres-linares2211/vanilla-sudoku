@@ -25,6 +25,7 @@ function addButtons(tooltip: HTMLDivElement, input: HTMLInputElement) {
     const button = createButton(i);
     button.addEventListener('click', () => {
       input.value = i.toString();
+      input.dispatchEvent(new Event('change'));
       destroyTooltip();
     });
     tooltip.appendChild(button);
