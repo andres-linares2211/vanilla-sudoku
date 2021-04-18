@@ -1,11 +1,11 @@
-import { Finder } from './Finder.js';
+import { Cell } from './Cell';
+import { Finder } from './Finder';
 
 export class Validator {
   private finder = new Finder();
 
-  validate(value: number, index: number, values: (number | null)[]): boolean {
-    console.log('hello', { value, index, values });
-    const possibleValues = this.finder.getPossibleValues(index, values);
+  validate(value: number, index: number, cells: Cell[]): boolean {
+    const possibleValues = this.finder.getPossibleValues(index, cells);
 
     return possibleValues.includes(value);
   }

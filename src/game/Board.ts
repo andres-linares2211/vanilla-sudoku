@@ -1,23 +1,20 @@
-import { BoardGenerator } from './BoardGenerator.js';
+import { BoardGenerator } from './BoardGenerator';
+import { Cell } from './Cell';
 
 export class Board {
-  private numbers: (number | null)[] = [];
-  private currentNumbers: (number | null)[] = [];
+  private onUpdate: Function;
+  cells!: Cell[];
+
+  constructor(onUpdate: Function) {
+    this.onUpdate = onUpdate;
+  }
 
   initialize() {
-    this.numbers = new BoardGenerator().generateBoard();
-    this.currentNumbers = [...this.numbers];
+    this.cells = new BoardGenerator().generateBoard();
   }
 
-  setValue(index: number, value: number | null) {
-    this.currentNumbers[index] = value;
-  }
-
-  get initialValues() {
-    return this.numbers;
-  }
-
-  get currentValues() {
-    return this.currentNumbers;
+  setValue(index: number, value: Cell) {
+    this.cells[index] = value;
+    this.onUpdate();
   }
 }

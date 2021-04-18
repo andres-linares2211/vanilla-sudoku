@@ -1,26 +1,21 @@
-import { Finder } from './Finder.js';
-import { Judge } from './Judge.js';
-import { SmartPlayer } from './SmartPlayer.js';
+import { Cell } from './Cell';
+import { Finder } from './Finder';
+import { Judge } from './Judge';
+import { SmartPlayer } from './SmartPlayer';
+import { cloneDeep } from 'lodash-es';
 
 export class BoardGenerator {
-  private values: (number | null)[] = [];
   private finder = new Finder();
   private judge = new Judge();
   private player!: SmartPlayer;
 
+  private cells: Cell[] = [];
+
   generateBoard() {
-    const intialTime = performance.now();
-
     this.buildFullBoard();
-    const creatingFullBoardTime = performance.now();
-
     this.removeValues();
-    const creatingPlayableBoardTime = performance.now();
 
-    console.log('Time building 1st board', (creatingFullBoardTime - intialTime).toFixed(2));
-    console.log('Time building 2nd board', (creatingPlayableBoardTime - intialTime).toFixed(2));
-
-    return this.values;
+    return this.cells;
   }
 
   private removeValues() {
@@ -28,20 +23,22 @@ export class BoardGenerator {
     const maxTries = 1000;
     let count = 0;
 
-    while (isWinnable || count < maxTries) {
-      const randomIndex = Math.floor(Math.random() * this.values.length);
-      if (this.values[randomIndex] === null) continue;
+    while (isWinnable && count < maxTries) {
+      const randomIndex = Math.floor(Math.random() * this.cells.length);
+      if (this.cells[randomIndex].value === null) continue;
 
-      const value = this.values[randomIndex];
-      this.values[randomIndex] = null;
+      const value = this.cells[randomIndex].value;
+      this.cells[randomIndex].value = null;
 
-      this.player = new SmartPlayer([...this.values]);
+      this.player = new SmartPlayer(cloneDeep(this.cells));
       isWinnable = this.player.play();
+      console.log({ isWinnable }, this.cells);
 
       if (!isWinnable) {
-        this.values[randomIndex] = value;
-        count += 1;
+        this.cells[randomIndex].value = value;
       }
+
+      count += 1;
     }
   }
 
@@ -50,10 +47,10 @@ export class BoardGenerator {
     const initialTime = performance.now();
 
     while (invalidGame) {
-      this.values = [];
+      this.cells = [];
 
       for (let i = 0; i < 9 * 9; i++) {
-        const possibleNumbers = this.finder.getPossibleValues(i, this.values);
+        const possibleNumbers = this.finder.getPossibleValues(i, this.cells);
 
         if (performance.now() - initialTime > 100) {
           break;
@@ -62,7 +59,7 @@ export class BoardGenerator {
         if (possibleNumbers.length === 0) {
           const restartRowGeneration = () => {
             i = Math.floor(i / 9) * 9 - 1;
-            this.values = this.values.splice(0, i + 1);
+            this.cells = this.cells.splice(0, i + 1);
           };
 
           restartRowGeneration();
@@ -70,10 +67,11 @@ export class BoardGenerator {
         }
 
         const randomIndex = Math.floor(Math.random() * possibleNumbers.length);
-        this.values.push(possibleNumbers[randomIndex]);
+        const value = possibleNumbers[randomIndex];
+        this.cells.push(new Cell(value, i));
       }
 
-      invalidGame = !this.judge.isValidGame(this.values);
+      invalidGame = !this.judge.isValidGame(this.cells);
       if (performance.now() - initialTime > 1000) break;
     }
   }
