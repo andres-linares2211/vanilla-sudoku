@@ -1,5 +1,7 @@
 import { Board } from './game/Board.js';
-import { QUADRANT_INDEXES } from './game/constants.js';
+import { addNumericTooltip } from './ui/NumericTooltip.js';
+import { addHighlighters } from './ui/Highlighter.js';
+import { paintTile } from './ui/TilePainter.js';
 
 const app = document.getElementById('root');
 const inputs: HTMLInputElement[] = [];
@@ -17,47 +19,10 @@ function initialize() {
 function paint() {
   for (let i = 0; i < 9 * 9; i++) {
     const value = game.values[i];
-    const input = document.createElement('input');
-    input.setAttribute('min', '1');
-    input.setAttribute('max', '9');
-    input.setAttribute('type', 'number');
-    if (value) {
-      input.value = value.toString();
-      input.readOnly = true;
-    }
+    const input = paintTile(value, i);
 
-    const hightlight = (event: FocusEvent | MouseEvent) => {
-      const quadrantIndexes = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(i));
-      quadrantIndexes?.forEach((index) => inputs[index].classList.add('highlight', 'soft'));
-
-      const firstIndexInColumn = i % 9;
-      for (let i = 0; i < 9; i++) {
-        inputs[firstIndexInColumn + i * 9].classList.add('highlight');
-        inputs[firstIndexInColumn + i * 9].classList.remove('soft');
-      }
-
-      const firstIndexInRow = Math.floor(i / 9) * 9;
-      for (let i = 0; i < 9; i++) {
-        inputs[firstIndexInRow + i].classList.add('highlight');
-        inputs[firstIndexInRow + i].classList.remove('soft');
-      }
-    };
-
-    const unHightlight = (event: FocusEvent | MouseEvent) => {
-      const input = event.target as HTMLInputElement;
-      input.classList.remove('highlight');
-      inputs.forEach((input) => input.classList.remove('highlight', 'soft'));
-    };
-
-    input.addEventListener('focus', hightlight);
-    input.addEventListener('mouseenter', hightlight);
-    input.addEventListener('blur', unHightlight);
-    input.addEventListener('mouseleave', unHightlight);
-
-    if (i % 27 < 9) input.classList.add('border-top');
-    if (i + 1 > 9 * 9 - 9) input.classList.add('border-bottom');
-    if ((i + 1) % 3 === 0) input.classList.add('border-right');
-    if (i % 9 === 0) input.classList.add('border-left');
+    addHighlighters(input, inputs, i);
+    addNumericTooltip(input);
 
     inputs.push(input);
     app?.appendChild(input);

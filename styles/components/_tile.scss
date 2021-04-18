@@ -1,0 +1,31 @@
+.board input[type='number'] {
+  width: 100%;
+  height: 100%;
+  border: var(--border-width) solid black;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 30px;
+  font-family: monospace;
+  color: #272727;
+  font-weight: 400;
+  background-color: white;
+  transition: background-color 25ms;
+  outline: none;
+  cursor: pointer;
+
+  &:read-only {
+    color: black;
+    font-weight: 600;
+    cursor: default;
+  }
+
+  &.highlight {
+    background-color: #1f54b679;
+    transition: background-color 65ms;
+
+    &--soft:not(.highlight) {
+      background-color: #1e50ad3d;
+    }
+  }
+}
