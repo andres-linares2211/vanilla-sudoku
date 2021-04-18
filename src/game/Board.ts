@@ -44,6 +44,7 @@ export class Board {
 
         const cell = emptyCells[index];
         cell.value = finder.getPossibleValues(cell.index, this.cells)[0];
+        cell.autocompleted = true;
         index += 1;
         this.onUpdate();
       }, 300);

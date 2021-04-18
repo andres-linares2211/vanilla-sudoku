@@ -15,6 +15,8 @@ export function paintCell(cell: Cell, index: number): HTMLInputElement {
 function setStyles(input: HTMLInputElement, cell: Cell) {
   if (cell.error) input.classList.add('error');
   else input.classList.remove('error');
+
+  if (cell.autocompleted) input.classList.add('autocompleted');
 }
 
 function setNumericAttributes(input: HTMLInputElement, cell: Cell) {

@@ -2,6 +2,7 @@
   --background: #fff;
   --background-alt: #ecf4f8;
   --background-error: #ff3838;
+  --background-autocomplete: #52e68a;
 
   width: 100%;
   height: 100%;
@@ -39,5 +40,25 @@
 
   &.error {
     background-color: var(--background-error) !important;
+  }
+
+  &.autocompleted {
+    animation: autocomplete 400ms;
+  }
+
+  @keyframes autocomplete {
+    0% {
+      background-color: var(--background);
+    }
+
+    15% {
+      background-color: var(--background-autocomplete);
+      transform: scale(1.1);
+    }
+
+    100% {
+      background-color: var(--background);
+      transform: scale(1);
+    }
   }
 }

@@ -5,6 +5,7 @@ export class Cell {
   private _value: number | null;
   private _manipulated = false;
   error = false;
+  autocompleted = false;
 
   constructor(value: number | null, index: number) {
     this._value = value;
