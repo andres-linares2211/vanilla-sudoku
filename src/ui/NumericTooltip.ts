@@ -1,3 +1,5 @@
+const TOOLTIP_ID = 'numericTooltip';
+
 export function addNumericTooltip(input: HTMLInputElement) {
   input.addEventListener('click', () => showTooltip(input));
 }
@@ -20,18 +22,19 @@ function positionTooltip(tooltip: HTMLDivElement, input: HTMLInputElement) {
 function addButtons(tooltip: HTMLDivElement, input: HTMLInputElement) {
   for (let i = 1; i <= 9; i++) {
     const button = createButton(i);
-    button.addEventListener('click', () => (input.value = i.toString()));
+    button.addEventListener('click', () => {
+      input.value = i.toString();
+      document.getElementById(TOOLTIP_ID)?.remove();
+    });
     tooltip.appendChild(button);
   }
 }
 
 function createTooltip() {
-  const tooltipId = 'numericTooltip';
-
-  document.getElementById(tooltipId)?.remove();
+  document.getElementById(TOOLTIP_ID)?.remove();
 
   const tooltip = document.createElement('div');
-  tooltip.id = tooltipId;
+  tooltip.id = TOOLTIP_ID;
 
   return tooltip;
 }
