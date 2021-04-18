@@ -24,7 +24,7 @@
     background-color: #1f54b679;
     transition: background-color 65ms;
 
-    &.soft {
+    &--soft:not(.highlight) {
       background-color: #1e50ad3d;
     }
   }
