@@ -55,7 +55,7 @@ describe('Finder', () => {
       cells[6].value = 6;
       cells[7].value = 8;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([]);
+      expect(possibilities).toEqual([1]);
     });
 
     it('should return available values in column', () => {
@@ -64,15 +64,15 @@ describe('Finder', () => {
 
       cells[0].value = 7;
       let possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([1, 2, 3, 4, 5, 6, 8, 9]);
+      expect(possibilities).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
       cells[45].value = 1;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([2, 3, 4, 5, 6, 8, 9]);
+      expect(possibilities).toEqual([2, 3, 4, 5, 6, 7, 8, 9]);
 
       cells[18].value = 4;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([2, 3, 5, 6, 8, 9]);
+      expect(possibilities).toEqual([2, 3, 5, 6, 7, 8, 9]);
 
       cells[9].value = 2;
       cells[27].value = 3;
@@ -81,7 +81,7 @@ describe('Finder', () => {
       cells[63].value = 8;
       cells[72].value = 9;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([]);
+      expect(possibilities).toEqual([7]);
     });
 
     it('should return available values in quadrant', () => {
@@ -90,15 +90,15 @@ describe('Finder', () => {
 
       cells[0].value = 7;
       let possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([1, 2, 3, 4, 5, 6, 8, 9]);
+      expect(possibilities).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
       cells[10].value = 1;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([2, 3, 4, 5, 6, 8, 9]);
+      expect(possibilities).toEqual([2, 3, 4, 5, 6, 7, 8, 9]);
 
       cells[19].value = 4;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([2, 3, 5, 6, 8, 9]);
+      expect(possibilities).toEqual([2, 3, 5, 6, 7, 8, 9]);
 
       cells[1].value = 2;
       cells[2].value = 3;
@@ -107,7 +107,7 @@ describe('Finder', () => {
       cells[18].value = 8;
       cells[20].value = 9;
       possibilities = finder.getPossibleValues(0, cells);
-      expect(possibilities).toEqual([]);
+      expect(possibilities).toEqual([7]);
     });
 
     it('should return possible values in row and column', () => {
