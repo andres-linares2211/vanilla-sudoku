@@ -1,4 +1,4 @@
-import { QUADRANT_INDEXES } from '../game/constants.js';
+import { QUADRANT_INDEXES } from '../game/constants';
 
 export function addHighlighters(
   input: HTMLInputElement,

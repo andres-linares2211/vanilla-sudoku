@@ -1,23 +1,32 @@
-import { QUADRANT_INDEXES } from '../game/constants.js';
+import { Cell } from '../game/Cell';
+import { QUADRANT_INDEXES } from '../game/constants';
 
-export function paintTile(value: number | null, index: number): HTMLInputElement {
+export function paintCell(cell: Cell, index: number): HTMLInputElement {
   const input = document.createElement('input');
 
-  setNumericAttributes(input, value);
+  setNumericAttributes(input, cell);
   setBorders(input, index);
   setAltBackground(input, index);
+  setStyles(input, cell);
 
   return input;
 }
 
-function setNumericAttributes(input: HTMLInputElement, value: number | null) {
+function setStyles(input: HTMLInputElement, cell: Cell) {
+  if (cell.error) input.classList.add('error');
+  else input.classList.remove('error');
+
+  if (cell.autocompleted) input.classList.add('autocompleted');
+}
+
+function setNumericAttributes(input: HTMLInputElement, cell: Cell) {
   input.min = '1';
   input.max = '9';
   input.type = 'number';
 
-  if (value) {
-    input.value = value.toString();
-    input.readOnly = true;
+  if (cell.value) {
+    input.value = cell.value.toString();
+    if (!cell.manipulated) input.readOnly = true;
   }
 }
 
