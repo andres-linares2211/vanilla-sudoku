@@ -24,7 +24,7 @@ export class BoardGenerator {
     const maxTries = 1000;
     let count = 0;
 
-    while (isWinnable && count < maxTries) {
+    while (isWinnable || count < maxTries) {
       const randomIndex = Math.floor(Math.random() * this.cells.length);
       if (this.cells[randomIndex].value === null) continue;
 
@@ -36,9 +36,8 @@ export class BoardGenerator {
 
       if (!isWinnable) {
         this.cells[randomIndex].value = value;
+        count += 1;
       }
-
-      count += 1;
     }
   }
 
