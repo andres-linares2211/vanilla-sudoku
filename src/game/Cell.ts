@@ -1,7 +1,7 @@
 import { QUADRANT_INDEXES } from './constants.js';
 
 export class Cell {
-  readonly value: number;
+  readonly value: number | null;
   readonly index: number;
   readonly systemGenerated: boolean;
 
