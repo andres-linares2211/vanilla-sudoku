@@ -2,6 +2,7 @@ const TOOLTIP_ID = 'numericTooltip';
 
 export function addNumericTooltip(input: HTMLInputElement) {
   input.addEventListener('click', () => showTooltip(input));
+  input.addEventListener('blur', () => destroyTooltip());
 }
 
 function showTooltip(input: HTMLInputElement) {
@@ -24,14 +25,14 @@ function addButtons(tooltip: HTMLDivElement, input: HTMLInputElement) {
     const button = createButton(i);
     button.addEventListener('click', () => {
       input.value = i.toString();
-      document.getElementById(TOOLTIP_ID)?.remove();
+      destroyTooltip();
     });
     tooltip.appendChild(button);
   }
 }
 
 function createTooltip() {
-  document.getElementById(TOOLTIP_ID)?.remove();
+  destroyTooltip();
 
   const tooltip = document.createElement('div');
   tooltip.id = TOOLTIP_ID;
@@ -44,4 +45,8 @@ function createButton(value: number) {
   button.innerHTML = value.toString();
 
   return button;
+}
+
+function destroyTooltip() {
+  document.getElementById(TOOLTIP_ID)?.remove();
 }
