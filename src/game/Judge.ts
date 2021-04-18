@@ -1,27 +1,28 @@
-import { QUADRANT_INDEXES } from './constants.js';
+import { Cell } from './Cell';
+import { QUADRANT_INDEXES } from './constants';
 
 export class Judge {
-  isValidGame(values: (number | null)[]): boolean {
-    if (values.length !== 9 * 9) return false;
-    if (!values.every((value) => value && value >= 1 && value <= 9)) return false;
-    if (!this.validAmountOfValues(values)) return false;
-    if (!this.validRows(values)) return false;
-    if (!this.validColumns(values)) return false;
-    if (!this.validQuadrants(values)) return false;
+  isValidGame(cells: Cell[]): boolean {
+    if (cells.length !== 9 * 9) return false;
+    if (!cells.every(({ value }) => value && value >= 1 && value <= 9)) return false;
+    if (!this.validAmountOfValues(cells)) return false;
+    if (!this.validRows(cells)) return false;
+    if (!this.validColumns(cells)) return false;
+    if (!this.validQuadrants(cells)) return false;
 
     return true;
   }
 
-  private validRows(values: (number | null)[]): boolean {
-    const row1 = values.slice(0, 9);
-    const row2 = values.slice(9, 18);
-    const row3 = values.slice(18, 27);
-    const row4 = values.slice(27, 36);
-    const row5 = values.slice(36, 45);
-    const row6 = values.slice(45, 54);
-    const row7 = values.slice(54, 63);
-    const row8 = values.slice(63, 72);
-    const row9 = values.slice(72, 81);
+  private validRows(cells: Cell[]): boolean {
+    const row1 = cells.filter((cell) => cell.index >= 0 && cell.index < 9);
+    const row2 = cells.filter((cell) => cell.index >= 9 && cell.index < 18);
+    const row3 = cells.filter((cell) => cell.index >= 18 && cell.index < 27);
+    const row4 = cells.filter((cell) => cell.index >= 27 && cell.index < 36);
+    const row5 = cells.filter((cell) => cell.index >= 36 && cell.index < 45);
+    const row6 = cells.filter((cell) => cell.index >= 45 && cell.index < 54);
+    const row7 = cells.filter((cell) => cell.index >= 54 && cell.index < 63);
+    const row8 = cells.filter((cell) => cell.index >= 63 && cell.index < 72);
+    const row9 = cells.filter((cell) => cell.index >= 72 && cell.index < 81);
 
     const validRow1 = this.allAreDifferent(row1);
     const validRow2 = this.allAreDifferent(row2);
@@ -46,16 +47,16 @@ export class Judge {
     );
   }
 
-  private validColumns(values: (number | null)[]): boolean {
-    const column1 = values.filter((_, index) => index % 9 === 0);
-    const column2 = values.filter((_, index) => index % 9 === 1);
-    const column3 = values.filter((_, index) => index % 9 === 2);
-    const column4 = values.filter((_, index) => index % 9 === 3);
-    const column5 = values.filter((_, index) => index % 9 === 4);
-    const column6 = values.filter((_, index) => index % 9 === 5);
-    const column7 = values.filter((_, index) => index % 9 === 6);
-    const column8 = values.filter((_, index) => index % 9 === 7);
-    const column9 = values.filter((_, index) => index % 9 === 8);
+  private validColumns(cells: Cell[]): boolean {
+    const column1 = cells.filter(({ index }) => index % 9 === 0);
+    const column2 = cells.filter(({ index }) => index % 9 === 1);
+    const column3 = cells.filter(({ index }) => index % 9 === 2);
+    const column4 = cells.filter(({ index }) => index % 9 === 3);
+    const column5 = cells.filter(({ index }) => index % 9 === 4);
+    const column6 = cells.filter(({ index }) => index % 9 === 5);
+    const column7 = cells.filter(({ index }) => index % 9 === 6);
+    const column8 = cells.filter(({ index }) => index % 9 === 7);
+    const column9 = cells.filter(({ index }) => index % 9 === 8);
 
     const validColumn1 = this.allAreDifferent(column1);
     const validColumn2 = this.allAreDifferent(column2);
@@ -80,7 +81,7 @@ export class Judge {
     );
   }
 
-  private validQuadrants(values: (number | null)[]) {
+  private validQuadrants(cells: Cell[]) {
     const [
       quadrant1,
       quadrant2,
@@ -91,7 +92,7 @@ export class Judge {
       quadrant7,
       quadrant8,
       quadrant9,
-    ] = QUADRANT_INDEXES.map((quadrant) => quadrant.map((index) => values[index]));
+    ] = QUADRANT_INDEXES.map((quadrant) => quadrant.map((index) => cells[index]));
 
     const validQuadrant1 = this.allAreDifferent(quadrant1);
     const validQuadrant2 = this.allAreDifferent(quadrant2);
@@ -116,9 +117,9 @@ export class Judge {
     );
   }
 
-  private validAmountOfValues(values: (number | null)[]) {
+  private validAmountOfValues(values: Cell[]) {
     const countsArray = values.reduce(
-      (acc, value) => {
+      (acc, { value }) => {
         acc[(value || 0) - 1]++;
         return acc;
       },
@@ -128,10 +129,10 @@ export class Judge {
     return countsArray.every((count) => count === 9);
   }
 
-  private allAreDifferent(values: (number | null)[]) {
+  private allAreDifferent(values: Cell[]) {
     if (values.length !== 9) throw new Error('Invalid check');
 
-    const onlyFilledValues = values.filter((value) => !!value);
+    const onlyFilledValues = values.filter(({ value }) => !!value);
     const uniqueArray = [...new Set(onlyFilledValues)];
 
     return onlyFilledValues.length === uniqueArray.length;

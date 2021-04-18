@@ -1,4 +1,5 @@
-import { Finder } from './Finder.js';
+import { Cell } from './Cell';
+import { Finder } from './Finder';
 
 /**
  * The Smart Player object will play a game and determines if the game is winnable or not.
@@ -6,10 +7,10 @@ import { Finder } from './Finder.js';
 export class SmartPlayer {
   private finder = new Finder();
   private isImpossibleGame = false;
-  private values: (number | null)[];
+  private cells: Cell[];
 
-  constructor(values: (number | null)[]) {
-    this.values = values;
+  constructor(cells: Cell[]) {
+    this.cells = cells;
   }
 
   /**
@@ -26,16 +27,16 @@ export class SmartPlayer {
   }
 
   private get areThereEmptyValues(): boolean {
-    return this.values.filter((value) => value === null).length > 0;
+    return this.cells.filter(({ value }) => value === null).length > 0;
   }
 
   setSingleValue() {
     for (let i = 0; i < 9 * 9; i++) {
-      if (this.values[i] !== null) continue;
+      if (this.cells[i].value !== null) continue;
 
-      const possibilities = this.finder.getPossibleValues(i, this.values);
+      const possibilities = this.finder.getPossibleValues(i, this.cells);
       if (possibilities.length === 1) {
-        this.values[i] = possibilities[0];
+        this.cells[i].value = possibilities[0];
         return;
       }
     }
