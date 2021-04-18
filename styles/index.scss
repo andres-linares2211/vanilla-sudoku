@@ -1,4 +1,5 @@
 @import './reset';
+@import './components/';
 
 html {
   height: 100%;
@@ -8,56 +9,4 @@ body {
   height: 100%;
   display: grid;
   place-content: center;
-}
-
-#root {
-  display: grid;
-  grid-template-columns: repeat(9, 50px);
-  grid-template-rows: repeat(9, 50px);
-
-  input {
-    width: 100%;
-    height: 100%;
-    border: 1px solid black;
-    display: grid;
-    place-content: center;
-    text-align: center;
-    font-size: 30px;
-    font-family: monospace;
-    color: #272727;
-    font-weight: 400;
-    background-color: white;
-    transition: background-color 25ms;
-    outline: none;
-
-    &:read-only {
-      color: black;
-      font-weight: 600;
-    }
-
-    &.border-top {
-      border-top-width: 4px;
-    }
-
-    &.border-right {
-      border-right-width: 4px;
-    }
-
-    &.border-bottom {
-      border-bottom-width: 4px;
-    }
-
-    &.border-left {
-      border-left-width: 4px;
-    }
-
-    &.highlight {
-      background-color: #1f54b679;
-      transition: background-color 65ms;
-
-      &.soft {
-        background-color: #1e50ad3d;
-      }
-    }
-  }
 }
