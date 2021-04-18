@@ -26,8 +26,11 @@ body {
     font-family: monospace;
     color: #272727;
     font-weight: 400;
+    background-color: white;
+    transition: background-color 25ms;
+    outline: none;
 
-    &:disabled {
+    &:read-only {
       color: black;
       font-weight: 600;
     }
@@ -46,6 +49,15 @@ body {
 
     &.border-left {
       border-left-width: 4px;
+    }
+
+    &.highlight {
+      background-color: #1f54b679;
+      transition: background-color 65ms;
+
+      &.soft {
+        background-color: #1e50ad3d;
+      }
     }
 
     // Remove unwanted arrows
