@@ -23,8 +23,14 @@ body {
     place-content: center;
     text-align: center;
     font-size: 30px;
-    font-weight: 600;
     font-family: monospace;
+    color: #272727;
+    font-weight: 400;
+
+    &:disabled {
+      color: black;
+      font-weight: 600;
+    }
 
     &.border-top {
       border-top-width: 4px;
