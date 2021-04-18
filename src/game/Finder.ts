@@ -1,13 +1,14 @@
-import { QUADRANT_INDEXES } from './constants.js';
+import { Cell } from './Cell';
+import { QUADRANT_INDEXES } from './constants';
 
 /**
  * The finder object will return the possible combinations for a given position
  */
 export class Finder {
-  getPossibleValues(index: number, values: (number | null)[]): number[] {
-    const availableValuesInRow = this.availableValuesInRow(index, values);
-    const availableValuesInColumn = this.availableValuesInColumn(index, values);
-    const availableValuesInQuadrant = this.availableNumbersInQuadrant(index, values);
+  getPossibleValues(index: number, cells: Cell[]): number[] {
+    const availableValuesInRow = this.availableValuesInRow(index, cells);
+    const availableValuesInColumn = this.availableValuesInColumn(index, cells);
+    const availableValuesInQuadrant = this.availableValuesInQuadrant(index, cells);
 
     const intersection = (arr1: number[], arr2: number[]) => arr1.filter((v) => arr2.includes(v));
 
@@ -17,30 +18,35 @@ export class Finder {
     return possibleAllThree;
   }
 
-  private availableNumbersInQuadrant(index: number, values: (number | null)[]): number[] {
+  private availableValuesInQuadrant(index: number, cells: Cell[]): number[] {
     const currentQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index));
-    const numbersInQuadrant = currentQuadrant?.map((index) => values[index]);
+    const cellsInQuadrant = currentQuadrant?.map((index) =>
+      cells.find((cell) => cell.index === index)
+    ) as Cell[];
 
-    return this.getAvailableNumbers(numbersInQuadrant || []);
+    return this.getAvailableNumbers(cellsInQuadrant);
   }
 
-  private availableValuesInColumn(index: number, values: (number | null)[]): number[] {
+  private availableValuesInColumn(index: number, cells: Cell[]): number[] {
     const firstIndexInColumn = index % 9;
-    const numbersInColumn = values.filter((_, index) => index % 9 === firstIndexInColumn);
+    const cellsInColumn = cells.filter((cell) => cell.index % 9 === firstIndexInColumn);
 
-    return this.getAvailableNumbers(numbersInColumn);
+    return this.getAvailableNumbers(cellsInColumn);
   }
 
-  private availableValuesInRow(index: number, values: (number | null)[]): number[] {
+  private availableValuesInRow(index: number, cells: Cell[]): number[] {
     const currentRow = Math.floor(index / 9);
     const firstIndexInRow = currentRow * 9;
-    const numbersInRow = values.slice(firstIndexInRow, firstIndexInRow + 9);
+    const cellsInRow = cells.filter(
+      (cell) => cell.index >= firstIndexInRow && cell.index < firstIndexInRow + 9
+    );
 
-    return this.getAvailableNumbers(numbersInRow);
+    return this.getAvailableNumbers(cellsInRow);
   }
 
-  private getAvailableNumbers(usedValues: (number | null)[]): number[] {
+  private getAvailableNumbers(usedCells: Cell[]): number[] {
     const availableNumbers = [];
+    const usedValues = usedCells.map((cell) => cell?.value);
 
     for (let i = 1; i <= 9; i++) {
       if (!usedValues.includes(i)) availableNumbers.push(i);
