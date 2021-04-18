@@ -1,17 +1,32 @@
-import { QUADRANT_INDEXES } from './constants.js';
+import { QUADRANT_INDEXES } from './constants';
 
 export class Cell {
-  readonly value: number | null;
   readonly index: number;
-  readonly systemGenerated: boolean;
+  private _value: number | null;
+  private _manipulated = false;
+  error = false;
 
-  constructor(value: number, index: number, systemGenerated: boolean = true) {
-    this.value = value;
+  constructor(value: number | null, index: number) {
+    this._value = value;
     this.index = index;
-    this.systemGenerated = systemGenerated;
   }
 
   get quadrant() {
     return QUADRANT_INDEXES.find((quadrant) => quadrant.includes(this.index));
+  }
+
+  get manipulated() {
+    return this._manipulated;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(value: number | null) {
+    if (value !== null && (value < 1 || value > 9)) return;
+
+    this._value = value;
+    this._manipulated = true;
   }
 }
