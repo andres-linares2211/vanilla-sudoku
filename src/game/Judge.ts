@@ -1,9 +1,9 @@
 import { QUADRANT_INDEXES } from './constants.js';
 
 export class Judge {
-  isValidGame(values: number[]): boolean {
+  isValidGame(values: (number | null)[]): boolean {
     if (values.length !== 9 * 9) return false;
-    if (!values.every((value) => value >= 1 && value <= 9)) return false;
+    if (!values.every((value) => value && value >= 1 && value <= 9)) return false;
     if (!this.validAmountOfValues(values)) return false;
     if (!this.validRows(values)) return false;
     if (!this.validColumns(values)) return false;
@@ -12,7 +12,7 @@ export class Judge {
     return true;
   }
 
-  private validRows(values: number[]): boolean {
+  private validRows(values: (number | null)[]): boolean {
     const row1 = values.slice(0, 9);
     const row2 = values.slice(9, 18);
     const row3 = values.slice(18, 27);
@@ -46,7 +46,7 @@ export class Judge {
     );
   }
 
-  private validColumns(values: number[]): boolean {
+  private validColumns(values: (number | null)[]): boolean {
     const column1 = values.filter((_, index) => index % 9 === 0);
     const column2 = values.filter((_, index) => index % 9 === 1);
     const column3 = values.filter((_, index) => index % 9 === 2);
@@ -80,7 +80,7 @@ export class Judge {
     );
   }
 
-  private validQuadrants(values: number[]) {
+  private validQuadrants(values: (number | null)[]) {
     const [
       quadrant1,
       quadrant2,
@@ -116,10 +116,10 @@ export class Judge {
     );
   }
 
-  private validAmountOfValues(values: number[]) {
+  private validAmountOfValues(values: (number | null)[]) {
     const countsArray = values.reduce(
       (acc, value) => {
-        acc[value - 1]++;
+        acc[(value || 0) - 1]++;
         return acc;
       },
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -128,7 +128,7 @@ export class Judge {
     return countsArray.every((count) => count === 9);
   }
 
-  private allAreDifferent(values: number[]) {
+  private allAreDifferent(values: (number | null)[]) {
     if (values.length !== 9) throw new Error('Invalid check');
 
     const onlyFilledValues = values.filter((value) => !!value);

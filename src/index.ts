@@ -19,7 +19,10 @@ function paint() {
     input.setAttribute('min', '1');
     input.setAttribute('max', '9');
     input.setAttribute('type', 'number');
-    input.value = value.toString();
+    if (value) {
+      input.value = value.toString();
+      input.disabled = true;
+    }
 
     if (i % 27 < 9) input.classList.add('border-top');
     if (i + 1 > 9 * 9 - 9) input.classList.add('border-bottom');

@@ -1,11 +1,51 @@
-import { QUADRANT_INDEXES } from './constants.js';
+import { Finder } from './Finder.js';
 import { Judge } from './Judge.js';
+import { SmartPlayer } from './SmartPlayer.js';
 
 export class BoardGenerator {
-  private values: number[] = [];
-  private judge: Judge = new Judge();
+  private values: (number | null)[] = [];
+  private finder = new Finder();
+  private judge = new Judge();
+  private player!: SmartPlayer;
 
   generateBoard() {
+    const intialTime = performance.now();
+
+    this.buildFullBoard();
+    const creatingFullBoardTime = performance.now();
+
+    this.removeValues();
+    const creatingPlayableBoardTime = performance.now();
+
+    console.log('Time building 1st board', (creatingFullBoardTime - intialTime).toFixed(2));
+    console.log('Time building 2nd board', (creatingPlayableBoardTime - intialTime).toFixed(2));
+
+    return this.values;
+  }
+
+  private removeValues() {
+    let isWinnable = true;
+    const maxTries = 1000;
+    let count = 0;
+
+    while (isWinnable || count < maxTries) {
+      const randomIndex = Math.floor(Math.random() * this.values.length);
+      if (this.values[randomIndex] === null) continue;
+
+      const value = this.values[randomIndex];
+      this.values[randomIndex] = null;
+
+      this.player = new SmartPlayer([...this.values]);
+      isWinnable = this.player.play();
+
+      if (!isWinnable) {
+        this.values[randomIndex] = value;
+        count += 1;
+      }
+    }
+  }
+
+  private buildFullBoard() {
     let invalidGame = true;
     const initialTime = performance.now();
 
@@ -13,7 +53,7 @@ export class BoardGenerator {
       this.values = [];
 
       for (let i = 0; i < 9 * 9; i++) {
-        const possibleNumbers = this.getPossibleNumbers(i);
+        const possibleNumbers = this.finder.getPossibleValues(i, this.values);
 
         if (performance.now() - initialTime > 100) {
           break;
@@ -34,67 +74,7 @@ export class BoardGenerator {
       }
 
       invalidGame = !this.judge.isValidGame(this.values);
-      if (performance.now() - initialTime > 10000) break;
+      if (performance.now() - initialTime > 1000) break;
     }
-
-    return this.values;
-  }
-
-  private getPossibleNumbers(index: number): number[] {
-    const availableNumbersInRow = this.availableNumbersInRow(index);
-    const availableNumbersInColumn = this.availableNumbersInColumn(index);
-    const availableNumbersInQuadrant = this.availableNumbersInQuadrant(index);
-
-    const allAvailableNumbers = [
-      ...availableNumbersInRow,
-      ...availableNumbersInColumn,
-      ...availableNumbersInQuadrant,
-    ];
-    const possibleNumbers = [];
-
-    for (let value of allAvailableNumbers) {
-      if (allAvailableNumbers.filter((number) => number === value).length === 3) {
-        possibleNumbers.push(value);
-      }
-    }
-
-    return possibleNumbers;
-  }
-
-  private availableNumbersInQuadrant(index: number): number[] {
-    const currentQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index));
-    const numbersInQuadrant = currentQuadrant?.map((index) => this.values[index]);
-    const availableNumbers = [];
-
-    for (let i = 1; i <= 9; i++) {
-      if (!numbersInQuadrant?.includes(i)) availableNumbers.push(i);
-    }
-
-    return availableNumbers;
-  }
-
-  private availableNumbersInColumn(index: number): number[] {
-    const firstIndexInColumn = index % 9;
-    const numbersInColumn = this.values.filter((_, index) => index % 9 === firstIndexInColumn);
-    const availableNumbers = [];
-
-    for (let i = 1; i <= 9; i++) {
-      if (!numbersInColumn.includes(i)) availableNumbers.push(i);
-    }
-
-    return availableNumbers;
-  }
-
-  private availableNumbersInRow(index: number): number[] {
-    const currentRow = Math.floor(index / 9);
-    const firstIndexInRow = currentRow * 9;
-    const numbersInRow = this.values.slice(firstIndexInRow, firstIndexInRow + 9);
-    const availableNumbers = [];
-
-    for (let i = 1; i <= 9; i++) {
-      if (!numbersInRow.includes(i)) availableNumbers.push(i);
-    }
-
-    return availableNumbers;
   }
 }
