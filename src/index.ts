@@ -2,6 +2,7 @@ import { Board } from './game/Board.js';
 import { addNumericTooltip } from './ui/NumericTooltip.js';
 import { addHighlighters } from './ui/Highlighter.js';
 import { paintTile } from './ui/TilePainter.js';
+import { addValidator } from './ui/Validator.js';
 
 const app = document.getElementById('root');
 const inputs: HTMLInputElement[] = [];
@@ -23,6 +24,7 @@ function paint() {
 
     addHighlighters(input, inputs, i);
     addNumericTooltip(input);
+    addValidator(input, i, game.values);
 
     inputs.push(input);
     app?.appendChild(input);
