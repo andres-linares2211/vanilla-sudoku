@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer;
+}
+
 // Remove unwanted arrows on input type number
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

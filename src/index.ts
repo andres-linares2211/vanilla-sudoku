@@ -1,5 +1,5 @@
 import { Board } from './game/Board.js';
-import { QUADRANT_INDEXES } from './game/constants.js';
+import { addNumericTooltip } from './ui/NumericTooltip.js';
 import { addHighlighters } from './ui/Highlighter.js';
 import { paintTile } from './ui/TilePainter.js';
 
@@ -20,7 +20,9 @@ function paint() {
   for (let i = 0; i < 9 * 9; i++) {
     const value = game.values[i];
     const input = paintTile(value, i);
+
     addHighlighters(input, inputs, i);
+    addNumericTooltip(input);
 
     inputs.push(input);
     app?.appendChild(input);
