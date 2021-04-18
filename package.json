@@ -7,8 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc && sass styles/:dist/styles/",
-    "build-web": "webpack",
+    "build": "webpack && sass styles/:dist/styles/",
     "dev-server": "webpack-dev-server",
     "dev": "sass --watch styles/:dist/styles/"
   },
