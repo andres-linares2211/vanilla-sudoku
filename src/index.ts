@@ -1,5 +1,6 @@
 import { Board } from './game/Board.js';
 import { QUADRANT_INDEXES } from './game/constants.js';
+import { paintTile } from './ui/TilePainter.js';
 
 const app = document.getElementById('root');
 const inputs: HTMLInputElement[] = [];
@@ -17,14 +18,7 @@ function initialize() {
 function paint() {
   for (let i = 0; i < 9 * 9; i++) {
     const value = game.values[i];
-    const input = document.createElement('input');
-    input.setAttribute('min', '1');
-    input.setAttribute('max', '9');
-    input.setAttribute('type', 'number');
-    if (value) {
-      input.value = value.toString();
-      input.readOnly = true;
-    }
+    const input = paintTile(value, i);
 
     const hightlight = (event: FocusEvent | MouseEvent) => {
       const quadrantIndexes = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(i));
@@ -53,11 +47,6 @@ function paint() {
     input.addEventListener('mouseenter', hightlight);
     input.addEventListener('blur', unHightlight);
     input.addEventListener('mouseleave', unHightlight);
-
-    if (i % 27 < 9) input.style.borderTopWidth = 'var(--thick-border-width)';
-    if (i + 1 > 9 * 9 - 9) input.style.borderBottomWidth = 'var(--thick-border-width)';
-    if ((i + 1) % 3 === 0) input.style.borderRightWidth = 'var(--thick-border-width)';
-    if (i % 9 === 0) input.style.borderLeftWidth = 'var(--thick-border-width)';
 
     inputs.push(input);
     app?.appendChild(input);
