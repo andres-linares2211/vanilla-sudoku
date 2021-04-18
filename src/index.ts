@@ -2,7 +2,6 @@ import { Board } from './game/Board';
 import { addNumericTooltip } from './ui/NumericTooltip';
 import { addHighlighters } from './ui/Highlighter';
 import { paintCell } from './ui/CellPainter';
-import { addAutocomplete } from './ui/Autocomplete';
 
 const app = document.getElementById('root');
 const inputs: HTMLInputElement[] = [];
@@ -28,8 +27,6 @@ function paint() {
     addNumericTooltip(input);
 
     input.addEventListener('change', () => game.setValue(cell, input.value ? +input.value : null));
-
-    // addAutocomplete(input, i, game.currentValues);
 
     inputs.push(input);
     app?.appendChild(input);
