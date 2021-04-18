@@ -14,6 +14,7 @@ export class BoardGenerator {
   generateBoard() {
     this.buildFullBoard();
     this.removeValues();
+    this.cells.forEach((cell) => cell.resetManipulation());
 
     return this.cells;
   }
@@ -32,7 +33,6 @@ export class BoardGenerator {
 
       this.player = new SmartPlayer(cloneDeep(this.cells));
       isWinnable = this.player.play();
-      console.log({ isWinnable }, this.cells);
 
       if (!isWinnable) {
         this.cells[randomIndex].value = value;

@@ -11,6 +11,10 @@ export class Cell {
     this.index = index;
   }
 
+  resetManipulation() {
+    this._manipulated = false;
+  }
+
   get quadrant() {
     return QUADRANT_INDEXES.find((quadrant) => quadrant.includes(this.index));
   }
