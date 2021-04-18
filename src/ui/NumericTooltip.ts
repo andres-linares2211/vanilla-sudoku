@@ -2,7 +2,7 @@ const TOOLTIP_ID = 'numericTooltip';
 
 export function addNumericTooltip(input: HTMLInputElement) {
   input.addEventListener('click', () => showTooltip(input));
-  input.addEventListener('blur', () => destroyTooltip());
+  input.addEventListener('blur', () => setTimeout(() => destroyTooltip(), 100));
 }
 
 function showTooltip(input: HTMLInputElement) {
