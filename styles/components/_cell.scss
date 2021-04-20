@@ -70,17 +70,17 @@
     }
   }
 
-  &.alt-background {
+  &.alt-background input {
     background-color: var(--background-alt);
   }
 
-  &.highlight {
+  &.highlight input {
     background-color: var(--background-highlight);
     transition: background-color 65ms;
+  }
 
-    &--main {
-      background-color: var(--background-highlight-main);
-    }
+  &.highlight--main input {
+    background-color: var(--background-highlight-main);
   }
 
   &.error input {
