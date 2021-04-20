@@ -3,8 +3,8 @@ import { addNumericTooltip } from './ui/NumericTooltip';
 import { addHighlighters } from './ui/Highlighter';
 import { paintCell } from './ui/CellPainter';
 
-const app = document.getElementById('root');
-const inputs: HTMLInputElement[] = [];
+const app = document.getElementById('root')!;
+let inputs: HTMLInputElement[] = [];
 let game: Board;
 
 initialize();
@@ -17,7 +17,8 @@ function initialize() {
 }
 
 function paint() {
-  if (app) app.innerHTML = '';
+  app.innerHTML = '';
+  inputs = [];
 
   for (let i = 0; i < 9 * 9; i++) {
     const cell = game.cells[i];
