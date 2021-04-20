@@ -1,7 +1,6 @@
 import '../styles/index.scss';
 import './ui/Translator';
 import { Board } from './game/Board';
-import { addNumericTooltip } from './ui/NumericTooltip';
 import { addHighlighters } from './ui/Highlighter';
 import { paintCell } from './ui/CellPainter';
 import { difficulty } from './game/BoardGenerator';
@@ -43,9 +42,9 @@ function paint() {
     const input = cellElement.querySelector('input')!;
 
     addHighlighters(cellElement, cellElements, i);
-    // addNumericTooltip(input);
 
-    input.addEventListener('input', () => {
+    input.addEventListener('keydown', (event) => {
+      input.value = event.key === 'Backspace' ? '' : event.key;
       input.blur();
     });
 
