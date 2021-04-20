@@ -1,18 +1,20 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
+  devtool: 'eval-source-map',
   entry: './src/index.ts',
   module: {
     rules: [
       {
         test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
       },
     ],
   },
   resolve: {
-    extensions: ['.ts'],
+    extensions: ['.ts', '.js'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
