@@ -6,6 +6,7 @@ import { paintCell } from './ui/CellPainter';
 const app = document.getElementById('root')!;
 const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
 let inputs: HTMLInputElement[] = [];
+let cellElements: HTMLDivElement[] = [];
 let game: Board;
 
 initialize();
@@ -20,13 +21,14 @@ function initialize() {
 function paint() {
   app.innerHTML = '';
   inputs = [];
+  cellElements = [];
 
   for (let i = 0; i < 9 * 9; i++) {
     const cell = game.cells[i];
     const cellElement = paintCell(cell, i);
     const input = cellElement.querySelector('input')!;
 
-    // addHighlighters(input, inputs, i);
+    addHighlighters(cellElement, cellElements, i);
     // addNumericTooltip(input);
 
     input.addEventListener('input', () => {
@@ -42,6 +44,7 @@ function paint() {
     });
 
     inputs.push(input);
+    cellElements.push(cellElement);
     app?.appendChild(cellElement);
   }
 }
