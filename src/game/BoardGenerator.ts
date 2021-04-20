@@ -4,7 +4,7 @@ import { Judge } from './Judge';
 import { SmartPlayer } from './SmartPlayer';
 import { cloneDeep } from 'lodash-es';
 
-type difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EXPERT';
+export type difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EXPERT';
 const BUSY_CELLS_DIFFICULTY_PERCENTAGE: { [key in difficulty]: number } = {
   EASY: 0.7,
   MEDIUM: 0.5,
