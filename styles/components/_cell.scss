@@ -3,11 +3,11 @@
   --background-alt: hsl(105, 20%, 96%);
   --background-highlight: hsl(205, 52%, 91%);
   --background-highlight-main: hsl(60, 91%, 71%);
-  --background-error: #ff3838;
   --background-autocomplete: #52e68a;
 
   --text-color: #141414;
-  --text-color-user: #0000d5;
+  --text-color-user: #3d3de7;
+  --text-color-error: #c82424;
 
   --border-width: 1px;
   --border-width-thick: 3px;
@@ -51,7 +51,7 @@
   }
 
   &.error {
-    background-color: var(--background-error) !important;
+    color: var(--text-color-error) !important;
   }
 
   &.autocompleted {
