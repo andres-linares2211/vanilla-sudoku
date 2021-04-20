@@ -5,6 +5,8 @@ import { addNumericTooltip } from './ui/NumericTooltip';
 import { addHighlighters } from './ui/Highlighter';
 import { paintCell } from './ui/CellPainter';
 import { difficulty } from './game/BoardGenerator';
+import { startChronometer } from './ui/Chronometer';
+import { Chronometer } from './utils/Chronometer';
 
 const app = document.getElementById('root')!;
 const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
@@ -13,6 +15,7 @@ const difficultySelector = document.getElementById('difficultySelector')! as HTM
 let inputs: HTMLInputElement[] = [];
 let cellElements: HTMLDivElement[] = [];
 let game: Board;
+let chronometer: Chronometer | null;
 
 initialize();
 
@@ -22,6 +25,9 @@ function initialize() {
   const level = difficultySelector.value as difficulty;
   game = new Board(() => paint(), level);
   game.initialize();
+
+  if (chronometer) chronometer.stop();
+  chronometer = startChronometer();
 
   paint();
 }
