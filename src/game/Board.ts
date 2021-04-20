@@ -21,6 +21,11 @@ export class Board {
     this.onUpdate();
   }
 
+  addPencilMark(cell: Cell, value: number): void {
+    cell.addPencilMark(value);
+    this.onUpdate();
+  }
+
   private checkAutocomplete() {
     if (this.cells.some((cell) => cell.error)) return;
 
