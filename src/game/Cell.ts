@@ -4,6 +4,7 @@ export class Cell {
   readonly index: number;
   private _value: number | null;
   private _manipulated = false;
+  private _pencilMarks: number[] = [];
   error = false;
   autocompleted = false;
 
@@ -16,12 +17,24 @@ export class Cell {
     this._manipulated = false;
   }
 
+  addPencilMark(value: number): void {
+    if (value < 1 || value > 9) return;
+    if (this.pencilMarks.includes(value)) return;
+    if (this._value !== null) return;
+
+    this._pencilMarks.push(value);
+  }
+
   get quadrant(): number[] | undefined {
     return QUADRANT_INDEXES.find((quadrant) => quadrant.includes(this.index));
   }
 
   get manipulated(): boolean {
     return this._manipulated;
+  }
+
+  get pencilMarks(): number[] {
+    return this._pencilMarks;
   }
 
   get value(): number | null {
@@ -33,5 +46,6 @@ export class Cell {
 
     this._value = value;
     this._manipulated = true;
+    this._pencilMarks = [];
   }
 }
