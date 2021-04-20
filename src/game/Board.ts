@@ -3,18 +3,18 @@ import { Cell } from './Cell';
 import { Finder } from './Finder';
 
 export class Board {
-  private onUpdate: Function;
+  private onUpdate: () => void;
   cells!: Cell[];
 
-  constructor(onUpdate: Function) {
+  constructor(onUpdate: () => void) {
     this.onUpdate = onUpdate;
   }
 
-  initialize() {
+  initialize(): void {
     this.cells = new BoardGenerator().generateBoard();
   }
 
-  setValue(cell: Cell, value: number | null) {
+  setValue(cell: Cell, value: number | null): void {
     cell.value = value;
     this.revalidateCells();
     this.checkAutocomplete();

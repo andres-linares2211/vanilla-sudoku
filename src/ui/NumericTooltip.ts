@@ -1,6 +1,6 @@
 const TOOLTIP_ID = 'numericTooltip';
 
-export function addNumericTooltip(input: HTMLInputElement) {
+export function addNumericTooltip(input: HTMLInputElement): void {
   if (input.readOnly) return;
 
   input.addEventListener('click', () => showTooltip(input));

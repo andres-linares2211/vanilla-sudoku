@@ -12,19 +12,19 @@ export class Cell {
     this.index = index;
   }
 
-  resetManipulation() {
+  resetManipulation(): void {
     this._manipulated = false;
   }
 
-  get quadrant() {
+  get quadrant(): number[] | undefined {
     return QUADRANT_INDEXES.find((quadrant) => quadrant.includes(this.index));
   }
 
-  get manipulated() {
+  get manipulated(): boolean {
     return this._manipulated;
   }
 
-  get value() {
+  get value(): number | null {
     return this._value;
   }
 

@@ -30,7 +30,7 @@ export class SmartPlayer {
     return this.cells.filter(({ value }) => value === null).length > 0;
   }
 
-  setSingleValue() {
+  setSingleValue(): void {
     for (let i = 0; i < 9 * 9; i++) {
       if (this.cells[i].value !== null) continue;
 
