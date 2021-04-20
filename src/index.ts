@@ -46,6 +46,7 @@ function paint() {
     input.addEventListener('keydown', (event) => {
       input.value = event.key === 'Backspace' ? '' : event.key;
       input.blur();
+      input.dispatchEvent(new Event('change'));
     });
 
     input.addEventListener('change', () => {
