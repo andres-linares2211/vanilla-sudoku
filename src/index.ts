@@ -2,17 +2,23 @@ import { Board } from './game/Board';
 import { addNumericTooltip } from './ui/NumericTooltip';
 import { addHighlighters } from './ui/Highlighter';
 import { paintCell } from './ui/CellPainter';
+import { difficulty } from './game/BoardGenerator';
 
 const app = document.getElementById('root')!;
 const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
+const difficultySelector = document.getElementById('difficultySelector')! as HTMLSelectElement;
+
 let inputs: HTMLInputElement[] = [];
 let cellElements: HTMLDivElement[] = [];
 let game: Board;
 
 initialize();
 
+difficultySelector.addEventListener('change', () => initialize());
+
 function initialize() {
-  game = new Board(() => paint());
+  const level = difficultySelector.value as difficulty;
+  game = new Board(() => paint(), level);
   game.initialize();
 
   paint();

@@ -1,17 +1,19 @@
-import { BoardGenerator } from './BoardGenerator';
+import { BoardGenerator, difficulty } from './BoardGenerator';
 import { Cell } from './Cell';
 import { Finder } from './Finder';
 
 export class Board {
+  private difficulty: difficulty;
   private onUpdate: () => void;
   cells!: Cell[];
 
-  constructor(onUpdate: () => void) {
+  constructor(onUpdate: () => void, difficulty: difficulty = 'MEDIUM') {
+    this.difficulty = difficulty;
     this.onUpdate = onUpdate;
   }
 
   initialize(): void {
-    this.cells = new BoardGenerator().generateBoard();
+    this.cells = new BoardGenerator(this.difficulty).generateBoard();
   }
 
   setValue(cell: Cell, value: number | null): void {
