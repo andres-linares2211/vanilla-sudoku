@@ -21,8 +21,16 @@ function showPencilMarks(cellElement: HTMLDivElement, cell: Cell) {
   if (cell.pencilMarks.length === 0) return;
 
   cell.pencilMarks.forEach((pencilMark) => {
+    const possibleMarkContainer = cellElement.querySelector('div');
+    const markContainer = possibleMarkContainer
+      ? possibleMarkContainer
+      : document.createElement('div');
+
     const mark = document.createElement('span');
     mark.innerHTML = pencilMark.toString();
+
+    markContainer?.appendChild(mark);
+    markContainer.classList.add('mark-container');
 
     if ([1, 4, 7].includes(pencilMark)) mark.style.left = '0';
     if ([3, 6, 9].includes(pencilMark)) mark.style.right = '0';
@@ -43,7 +51,7 @@ function showPencilMarks(cellElement: HTMLDivElement, cell: Cell) {
       mark.style.transform = 'translate(-50%, -50%)';
     }
 
-    cellElement.appendChild(mark);
+    if (!possibleMarkContainer) cellElement.appendChild(markContainer);
   });
 }
 

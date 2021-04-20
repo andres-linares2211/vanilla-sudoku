@@ -52,11 +52,21 @@
     }
   }
 
-  span {
+  .mark-container {
     position: absolute;
     z-index: 1;
-    font-size: 0.6em;
-    color: #696969;
+    width: 90%;
+    height: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    span {
+      position: absolute;
+      font-size: 0.45em;
+      line-height: 1;
+      color: #696969;
+    }
   }
 
   &.alt-background {
