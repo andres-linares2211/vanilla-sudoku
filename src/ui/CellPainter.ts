@@ -32,15 +32,15 @@ function setNumericAttributes(input: HTMLInputElement, cell: Cell) {
 
 function setBorders(input: HTMLInputElement, index: number) {
   const shouldHaveTopBorder = index % 27 < 9 && index > 9;
-  const shouldHaveRightBorder = (index + 1) % 3 === 0 && index % 9 !== 8;
+  const shouldHaveLeftBorder = index % 3 === 0 && index % 9 !== 0;
 
   if (shouldHaveTopBorder) {
     input.style.borderTopWidth = 'var(--border-width-thick)';
     input.style.borderTopColor = 'var(--border-color-thick)';
   }
-  if (shouldHaveRightBorder) {
-    input.style.borderRightWidth = 'var(--border-width-thick)';
-    input.style.borderRightColor = 'var(--border-color-thick)';
+  if (shouldHaveLeftBorder) {
+    input.style.borderLeftWidth = 'var(--border-width-thick)';
+    input.style.borderLeftColor = 'var(--border-color-thick)';
   }
 }
 
