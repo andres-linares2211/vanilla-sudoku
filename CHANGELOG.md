@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added chronometer.
 - Highlighter for cells with same value
 
+### Fixed
+
+- Input listener was changed to keydown listener to better process the desired value.
+
 ## [3.3.0] 2021-04-20
 
 ### Added
