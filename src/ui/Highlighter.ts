@@ -4,7 +4,7 @@ export function addHighlighters(
   input: HTMLInputElement,
   inputs: HTMLInputElement[],
   index: number
-) {
+): void {
   input.addEventListener('focus', () => showHighlight(inputs, input, index));
   input.addEventListener('mouseenter', () => showHighlight(inputs, input, index));
 

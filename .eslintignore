@@ -1,0 +1,6 @@
+node_modules/**
+dist/**
+
+# Files that use module.exports
+.eslintrc.js
+commitlint.config.js

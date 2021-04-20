@@ -1,7 +1,10 @@
 export function randomIntInRange(min: number, max: number): number {
-  return 1;
+  const difference = max - min;
+  const random = Math.round(Math.random() * difference);
+
+  return random + min;
 }
 
 export function randomIntUpTo(value: number): number {
-  return 1;
+  return Math.round(Math.random() * value);
 }
