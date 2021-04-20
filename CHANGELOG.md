@@ -10,10 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 
 - New validations with Husky, CommitLint, ESLint and Prettier.
+- Pencil Button to toggle pencil state.
+- Pencil marks!
 
 ## Fixed
 
 - Implemented ESLint suggestions on typescript code.
+- Cells are always same size no matter inside content.
+- Cell will lose focus after single input
 
 ## [3.1.1] - 2021-04-19
 
