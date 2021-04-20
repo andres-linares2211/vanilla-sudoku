@@ -22,10 +22,8 @@ export class Chronometer {
   }
 
   listen(callback: (time: TimeResult) => void): void {
-    this.interval = setInterval(
-      () => callback({ time: this.time, formattedTime: this.formatedTime }),
-      100
-    );
+    const sendTime = () => callback({ time: this.time, formattedTime: this.formatedTime });
+    this.interval = setInterval(sendTime, 100);
   }
 
   get time(): number {
