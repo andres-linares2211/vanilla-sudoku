@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- New validations with Husky, CommitLint, ESLint and Prettier.
+
+## Fixed
+
+- Implemented ESLint suggestions on typescript code.
+
 ## [3.1.1] - 2021-04-19
 
 ### Fixed
