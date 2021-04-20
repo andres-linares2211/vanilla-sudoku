@@ -24,7 +24,7 @@ function paint() {
     const input = paintCell(cell, i);
 
     addHighlighters(input, inputs, i);
-    addNumericTooltip(input);
+    // addNumericTooltip(input);
 
     input.addEventListener('change', () => game.setValue(cell, input.value ? +input.value : null));
 

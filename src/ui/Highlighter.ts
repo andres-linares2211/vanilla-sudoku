@@ -5,19 +5,20 @@ export function addHighlighters(
   inputs: HTMLInputElement[],
   index: number
 ) {
-  input.addEventListener('focus', () => showHighlight(inputs, index));
-  input.addEventListener('mouseenter', () => showHighlight(inputs, index));
+  input.addEventListener('focus', () => showHighlight(inputs, input, index));
+  input.addEventListener('mouseenter', () => showHighlight(inputs, input, index));
 
   input.addEventListener('blur', () => hideHighligt(inputs));
   input.addEventListener('mouseleave', () => hideHighligt(inputs));
 }
 
-function showHighlight(inputs: HTMLInputElement[], index: number) {
+function showHighlight(inputs: HTMLInputElement[], input: HTMLInputElement, index: number) {
   const { inputsInQuadrant, inputsInColumn, inputsInRow } = getInputs(inputs, index);
 
-  inputsInQuadrant?.forEach((input) => input.classList.add('highlight--soft'));
+  inputsInQuadrant?.forEach((input) => input.classList.add('highlight'));
   inputsInColumn.forEach((input) => input.classList.add('highlight'));
   inputsInRow.forEach((input) => input.classList.add('highlight'));
+  input.classList.add('highlight--main');
 }
 
 function getInputs(inputs: HTMLInputElement[], index: number) {
@@ -33,5 +34,5 @@ function getInputs(inputs: HTMLInputElement[], index: number) {
 }
 
 function hideHighligt(inputs: HTMLInputElement[]) {
-  inputs.forEach((input) => input.classList.remove('highlight', 'highlight--soft'));
+  inputs.forEach((input) => input.classList.remove('highlight', 'highlight--main'));
 }

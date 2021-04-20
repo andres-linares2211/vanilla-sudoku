@@ -31,10 +31,17 @@ function setNumericAttributes(input: HTMLInputElement, cell: Cell) {
 }
 
 function setBorders(input: HTMLInputElement, index: number) {
-  if (index % 27 < 9) input.style.borderTopWidth = 'var(--thick-border-width)';
-  if (index + 1 > 9 * 9 - 9) input.style.borderBottomWidth = 'var(--thick-border-width)';
-  if ((index + 1) % 3 === 0) input.style.borderRightWidth = 'var(--thick-border-width)';
-  if (index % 9 === 0) input.style.borderLeftWidth = 'var(--thick-border-width)';
+  const shouldHaveTopBorder = index % 27 < 9 && index > 9;
+  const shouldHaveRightBorder = (index + 1) % 3 === 0 && index % 9 !== 8;
+
+  if (shouldHaveTopBorder) {
+    input.style.borderTopWidth = 'var(--border-width-thick)';
+    input.style.borderTopColor = 'var(--border-color-thick)';
+  }
+  if (shouldHaveRightBorder) {
+    input.style.borderRightWidth = 'var(--border-width-thick)';
+    input.style.borderRightColor = 'var(--border-color-thick)';
+  }
 }
 
 function setAltBackground(input: HTMLInputElement, index: number) {
