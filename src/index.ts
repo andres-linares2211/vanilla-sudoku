@@ -29,6 +29,10 @@ function paint() {
     // addHighlighters(input, inputs, i);
     // addNumericTooltip(input);
 
+    input.addEventListener('input', () => {
+      input.blur();
+    });
+
     input.addEventListener('change', () => {
       if (pencilCheckbox.checked) {
         if (input.value) game.addPencilMark(cell, +input.value);
