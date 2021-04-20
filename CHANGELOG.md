@@ -7,4 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2021-04-19
+
+### Added
+
+- More colors!
+
+### Changed
+
+- Use different and better styles for board and cells.
+
+### Removed
+
+- Temporally removing numericTooltip until we find a better solution for mobile users.
+
 ## [1.0.0] - 2021-04-17
