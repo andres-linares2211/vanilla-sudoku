@@ -24,6 +24,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
     "jest": "^26.6.3",
+    "lint-staged": ">=10",
     "prettier": "^2.2.1",
     "sass": "^1.32.10",
     "ts-jest": "^26.5.5",
@@ -35,5 +36,8 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
