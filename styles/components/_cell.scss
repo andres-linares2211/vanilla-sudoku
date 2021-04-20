@@ -54,6 +54,7 @@
 
   .mark-container {
     position: absolute;
+    pointer-events: none;
     z-index: 1;
     width: 90%;
     height: 90%;
@@ -82,7 +83,7 @@
     }
   }
 
-  &.error {
+  &.error input {
     color: var(--text-color-error) !important;
   }
 
