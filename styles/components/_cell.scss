@@ -21,7 +21,6 @@
   position: relative;
 
   font-size: clamp(1rem, 100vmin * 0.07, 2.25rem);
-  font-weight: 600;
   font-family: var(--font-family-cells);
 
   display: grid;
@@ -41,7 +40,6 @@
     font-size: 1em;
     font-family: var(--font-family-cells);
     color: var(--text-color-user);
-    font-weight: 600;
 
     cursor: pointer;
     outline: none;
@@ -87,7 +85,7 @@
     color: var(--text-color-error) !important;
   }
 
-  &.autocompleted {
+  &.autocompleted input {
     animation: autocomplete 400ms;
   }
 
