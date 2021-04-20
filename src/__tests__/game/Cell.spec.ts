@@ -40,6 +40,7 @@ describe('Cell', () => {
 
   it('should be manipulated after setting the value post creation', () => {
     const cell = new Cell(1, 0);
+    expect(cell.manipulated).toEqual(false);
 
     cell.value = 2;
     expect(cell.manipulated).toEqual(true);
