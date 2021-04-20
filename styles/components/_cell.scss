@@ -21,6 +21,7 @@
   position: relative;
 
   font-size: clamp(1rem, 100vmin * 0.07, 2.25rem);
+  font-family: var(--font-family-cells);
 
   display: grid;
   place-content: center;
