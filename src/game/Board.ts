@@ -11,7 +11,7 @@ export class Board {
   }
 
   initialize(): void {
-    this.cells = new BoardGenerator().generateBoard();
+    this.cells = new BoardGenerator('EXPERT').generateBoard();
   }
 
   setValue(cell: Cell, value: number | null): void {
