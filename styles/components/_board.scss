@@ -1,12 +1,15 @@
 .board {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: repeat(9, 1fr);
+  --board-size: calc(100vmin - 2rem);
+  --board-size-max: 30rem;
 
-  width: calc(100vmin - 2rem);
-  max-width: 30rem;
-  height: calc(100vmin - 2rem);
-  max-height: 30rem;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-rows: repeat(9, minmax(0, 1fr));
+
+  width: var(--board-size);
+  max-width: var(--board-size-max);
+  height: var(--board-size);
+  max-height: var(--board-size-max);
 
   box-shadow: 3px 3px 6px 1px rgba(13, 15, 12, 0.12), 0 0 1px -1px rgba(7, 6, 7, 0.15);
 }

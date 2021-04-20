@@ -3,21 +3,27 @@ import { Cell } from './Cell';
 import { Finder } from './Finder';
 
 export class Board {
-  private onUpdate: Function;
+  private onUpdate: () => void;
   cells!: Cell[];
 
-  constructor(onUpdate: Function) {
+  constructor(onUpdate: () => void) {
     this.onUpdate = onUpdate;
   }
 
-  initialize() {
+  initialize(): void {
     this.cells = new BoardGenerator().generateBoard();
   }
 
-  setValue(cell: Cell, value: number | null) {
+  setValue(cell: Cell, value: number | null): void {
     cell.value = value;
     this.revalidateCells();
     this.checkAutocomplete();
+    this.onUpdate();
+  }
+
+  addPencilMark(cell: Cell, value: number): void {
+    cell.addPencilMark(value);
+    this.revalidateCells();
     this.onUpdate();
   }
 
@@ -54,15 +60,16 @@ export class Board {
   private revalidateCells() {
     const finder = new Finder();
 
-    const manipulatedCells = this.cells.filter((cell) => cell.manipulated);
-    manipulatedCells.forEach((cell) => {
-      if (cell.value === null) {
-        cell.error = false;
-        return;
-      }
-
+    const playerCells = this.cells.filter(
+      (cell) => cell.manipulated || cell.pencilMarks.length > 0
+    );
+    playerCells.forEach((cell) => {
       const validSolutions = finder.getPossibleValues(cell.index, this.cells);
-      cell.error = !validSolutions.includes(cell.value);
+
+      cell.error = cell.value === null ? false : !validSolutions.includes(cell.value);
+
+      const invalidMarks = cell.pencilMarks.filter((mark) => !validSolutions.includes(mark));
+      invalidMarks.forEach((mark) => cell.removePencilMark(mark));
     });
   }
 }

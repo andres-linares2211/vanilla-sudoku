@@ -11,7 +11,7 @@ export class BoardGenerator {
 
   private cells: Cell[] = [];
 
-  generateBoard() {
+  generateBoard(): Cell[] {
     this.buildFullBoard();
     this.removeValues();
     this.cells.forEach((cell) => cell.resetManipulation());

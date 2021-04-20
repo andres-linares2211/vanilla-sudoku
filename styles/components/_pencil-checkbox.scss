@@ -1,0 +1,44 @@
+.pencil-checkbox {
+  margin-top: 0.75rem;
+  display: inline-block;
+
+  label {
+    cursor: pointer;
+    display: flex;
+    border: 1px solid rgba(192, 230, 241, 0.582);
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px -1px rgba(23, 18, 20, 0.07);
+    padding: 0.5em;
+    transition: 250ms ease;
+    // outline: none;
+
+    .icon-tabler-writing {
+      display: none;
+    }
+
+    &:hover {
+      background-color: rgba(207, 238, 246, 0.582);
+      box-shadow: 2px 2px 8px -1px rgba(23, 18, 20, 0.13);
+    }
+  }
+
+  input:checked + label {
+    background-color: rgb(146, 209, 245);
+
+    .icon-tabler-writing {
+      display: block;
+    }
+
+    .icon-tabler-pencil {
+      display: none;
+    }
+
+    &:hover {
+      background-color: rgb(173, 228, 241);
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
