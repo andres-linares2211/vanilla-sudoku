@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added script to translate elements that use the attribute `data-translate`.
 - Added chronometer.
+- Highlighter for cells with same value
 
 ## [3.3.0] 2021-04-20
 
