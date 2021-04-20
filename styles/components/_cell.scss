@@ -10,7 +10,7 @@
   display: grid;
   place-content: center;
   text-align: center;
-  font-size: 30px;
+  font-size: clamp(1rem, 100vmin * 0.06, 2rem);
   font-family: monospace;
   color: #272727;
   font-weight: 400;

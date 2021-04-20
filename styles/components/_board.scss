@@ -1,5 +1,9 @@
 .board {
   display: grid;
-  grid-template-columns: repeat(9, 50px);
-  grid-template-rows: repeat(9, 50px);
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  width: calc(100vmin - 2rem);
+  max-width: 30rem;
+  height: calc(100vmin - 2rem);
+  max-height: 30rem;
 }
