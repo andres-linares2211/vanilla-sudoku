@@ -9,7 +9,8 @@
   "scripts": {
     "build": "webpack && sass styles/:dist/styles/",
     "dev-server": "webpack-dev-server",
-    "dev": "sass --watch styles/:dist/styles/"
+    "dev": "sass --watch styles/:dist/styles/",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.1",
