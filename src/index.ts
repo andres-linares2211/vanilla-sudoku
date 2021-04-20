@@ -8,14 +8,14 @@ import { difficulty } from './game/BoardGenerator';
 import { startChronometer } from './ui/Chronometer';
 import { Chronometer } from './utils/Chronometer';
 
-const app = document.getElementById('root')!;
-const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
-const difficultySelector = document.getElementById('difficultySelector')! as HTMLSelectElement;
-
 let inputs: HTMLInputElement[] = [];
 let cellElements: HTMLDivElement[] = [];
 let game: Board;
 let chronometer: Chronometer | null;
+
+const app = document.getElementById('root')!;
+const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
+const difficultySelector = document.getElementById('difficultySelector')! as HTMLSelectElement;
 
 initialize();
 
