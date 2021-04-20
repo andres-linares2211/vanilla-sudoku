@@ -1,5 +1,5 @@
 #chronometer {
   font-family: var(--font-family-monospace);
   font-size: clamp(1rem, 100vmin * 0.05, 1.6rem);
-  color: #292929;
+  color: var(--text-color);
 }
