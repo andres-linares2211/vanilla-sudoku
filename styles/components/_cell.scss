@@ -1,6 +1,8 @@
 .board input[type='number'] {
   --background: #fff;
-  --background-alt: #ecf4f8;
+  --background-alt: hsl(105, 20%, 96%);
+  --background-highlight: hsl(220, 53%, 91%);
+  --background-highlight-main: hsl(60, 91%, 71%);
   --background-error: #ff3838;
   --background-autocomplete: #52e68a;
 
@@ -30,11 +32,11 @@
   }
 
   &.highlight {
-    background-color: #1f54b679;
+    background-color: var(--background-highlight);
     transition: background-color 65ms;
 
-    &--soft:not(.highlight) {
-      background-color: #1e50ad3d;
+    &--main {
+      background-color: var(--background-highlight-main);
     }
   }
 
