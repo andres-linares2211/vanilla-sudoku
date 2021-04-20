@@ -112,5 +112,15 @@ describe('Cell', () => {
       cell.addPencilMark(1);
       expect(cell.pencilMarks).toEqual([1]);
     });
+
+    it('should remove pencil existing pencil marks', () => {
+      const cell = new Cell(null, 0);
+
+      cell.addPencilMark(1);
+      expect(cell.pencilMarks).toEqual([1]);
+
+      cell.removePencilMark(1);
+      expect(cell.pencilMarks).toEqual([]);
+    });
   });
 });

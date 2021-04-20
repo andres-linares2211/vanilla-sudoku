@@ -25,6 +25,12 @@ export class Cell {
     this._pencilMarks.push(value);
   }
 
+  removePencilMark(value: number): void {
+    if (!this.pencilMarks.includes(value)) return;
+
+    this._pencilMarks = this._pencilMarks.filter((mark) => mark !== value);
+  }
+
   get quadrant(): number[] | undefined {
     return QUADRANT_INDEXES.find((quadrant) => quadrant.includes(this.index));
   }
