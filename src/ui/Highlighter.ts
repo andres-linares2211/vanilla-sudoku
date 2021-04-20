@@ -1,39 +1,41 @@
 import { QUADRANT_INDEXES } from '../game/constants';
 
 export function addHighlighters(
-  cellElement: HTMLDivElement,
-  cellElements: HTMLDivElement[],
+  cell: HTMLDivElement,
+  cells: HTMLDivElement[],
   index: number
 ): void {
-  const input = cellElement.querySelector('input')!;
-  input.addEventListener('focus', () => showHighlight(cellElements, cellElement, index));
-  input.addEventListener('mouseenter', () => showHighlight(cellElements, cellElement, index));
+  const input = cell.querySelector('input');
+  if (!input) return;
 
-  input.addEventListener('blur', () => hideHighligt(cellElements));
-  input.addEventListener('mouseleave', () => hideHighligt(cellElements));
+  input.addEventListener('focus', () => showHighlight(cells, cell, index));
+  input.addEventListener('mouseenter', () => showHighlight(cells, cell, index));
+
+  input.addEventListener('blur', () => hideHighligt(cells));
+  input.addEventListener('mouseleave', () => hideHighligt(cells));
 }
 
-function showHighlight(cellElements: HTMLDivElement[], cellElement: HTMLDivElement, index: number) {
-  const { inputsInQuadrant, inputsInColumn, inputsInRow } = getInputs(cellElements, index);
+function showHighlight(cells: HTMLDivElement[], cell: HTMLDivElement, index: number) {
+  const { cellsInQuadrant, cellsInColumn, cellsInRow } = getCells(cells, index);
 
-  inputsInQuadrant?.forEach((input) => input.classList.add('highlight'));
-  inputsInColumn.forEach((input) => input.classList.add('highlight'));
-  inputsInRow.forEach((input) => input.classList.add('highlight'));
-  cellElement.classList.add('highlight--main');
+  cellsInQuadrant?.forEach((cell) => cell.classList.add('highlight'));
+  cellsInColumn.forEach((cell) => cell.classList.add('highlight'));
+  cellsInRow.forEach((cell) => cell.classList.add('highlight'));
+  cell.classList.add('highlight--main');
 }
 
-function getInputs(cellElements: HTMLDivElement[], index: number) {
-  const inputsInQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index))?.map(
-    (i) => cellElements[i]
+function getCells(cells: HTMLDivElement[], index: number) {
+  const cellsInQuadrant = QUADRANT_INDEXES.find((quadrant) => quadrant.includes(index))?.map(
+    (i) => cells[i]
   );
-  const inputsInColumn = cellElements.filter((_, i) => i % 9 === index % 9);
-  const inputsInRow = cellElements.filter(
+  const cellsInColumn = cells.filter((_, i) => i % 9 === index % 9);
+  const cellsInRow = cells.filter(
     (_, i) => i >= Math.floor(index / 9) * 9 && i < Math.ceil(index / 9) * 9
   );
 
-  return { inputsInQuadrant, inputsInColumn, inputsInRow };
+  return { cellsInQuadrant, cellsInColumn, cellsInRow };
 }
 
-function hideHighligt(cellElements: HTMLDivElement[]) {
-  cellElements.forEach((cell) => cell.classList.remove('highlight', 'highlight--main'));
+function hideHighligt(cells: HTMLDivElement[]) {
+  cells.forEach((cell) => cell.classList.remove('highlight', 'highlight--main'));
 }

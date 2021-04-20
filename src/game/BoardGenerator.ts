@@ -4,12 +4,25 @@ import { Judge } from './Judge';
 import { SmartPlayer } from './SmartPlayer';
 import { cloneDeep } from 'lodash-es';
 
+export type difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EXPERT';
+const BUSY_CELLS_DIFFICULTY_PERCENTAGE: { [key in difficulty]: number } = {
+  EASY: 0.7,
+  MEDIUM: 0.5,
+  HARD: 0.35,
+  EXPERT: 0.0,
+};
+
 export class BoardGenerator {
   private finder = new Finder();
   private judge = new Judge();
   private player!: SmartPlayer;
+  private difficulty: difficulty;
 
   private cells: Cell[] = [];
+
+  constructor(difficulty: difficulty) {
+    this.difficulty = difficulty;
+  }
 
   generateBoard(): Cell[] {
     this.buildFullBoard();
@@ -37,6 +50,13 @@ export class BoardGenerator {
       if (!isWinnable) {
         this.cells[randomIndex].value = value;
         count += 1;
+      } else {
+        const busyCellsPercentage =
+          this.cells.filter((cell) => cell.value !== null).length / this.cells.length;
+
+        if (busyCellsPercentage <= BUSY_CELLS_DIFFICULTY_PERCENTAGE[this.difficulty]) {
+          break;
+        }
       }
     }
   }
