@@ -1,4 +1,5 @@
 import '../styles/index.scss';
+import './ui/Translator';
 import { Board } from './game/Board';
 import { addNumericTooltip } from './ui/NumericTooltip';
 import { addHighlighters } from './ui/Highlighter';
