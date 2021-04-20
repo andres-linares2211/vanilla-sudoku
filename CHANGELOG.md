@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Borders are now a bit smaller and a bit whiteish.
+
 ## [3.1.0] - 2021-04-19
 
 ### Added
