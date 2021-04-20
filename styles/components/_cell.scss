@@ -2,6 +2,7 @@
   --background: #fff;
   --background-alt: hsl(105, 20%, 96%);
   --background-highlight: hsl(205, 52%, 91%);
+  --background-hightlight-same: hsl(205, 85%, 80%);
   --background-highlight-main: hsl(60, 91%, 71%);
   --background-autocomplete: #52e68a;
 
@@ -79,6 +80,10 @@
 
   &.highlight--main input {
     background-color: var(--background-highlight-main);
+  }
+
+  &.highlight--same input {
+    background-color: var(--background-hightlight-same);
   }
 
   &.error input {
