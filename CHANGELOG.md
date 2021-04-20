@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added script to translate elements that use the attribute `data-translate`.
+- Added chronometer.
 
 ## [3.3.0] 2021-04-20
 
