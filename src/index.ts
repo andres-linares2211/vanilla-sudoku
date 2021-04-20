@@ -23,9 +23,10 @@ function paint() {
 
   for (let i = 0; i < 9 * 9; i++) {
     const cell = game.cells[i];
-    const input = paintCell(cell, i);
+    const cellElement = paintCell(cell, i);
+    const input = cellElement.querySelector('input')!;
 
-    addHighlighters(input, inputs, i);
+    // addHighlighters(input, inputs, i);
     // addNumericTooltip(input);
 
     input.addEventListener('change', () => {
@@ -37,6 +38,6 @@ function paint() {
     });
 
     inputs.push(input);
-    app?.appendChild(input);
+    app?.appendChild(cellElement);
   }
 }
