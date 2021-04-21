@@ -15,6 +15,7 @@ let chronometer: Chronometer | null;
 const app = document.getElementById('root')!;
 const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
 const difficultySelector = document.getElementById('difficultySelector')! as HTMLSelectElement;
+const helpButton = document.getElementById('helpButton');
 
 initialize();
 
@@ -34,6 +35,10 @@ function initialize() {
 
   if (chronometer) chronometer.stop();
   chronometer = startChronometer();
+
+  helpButton?.addEventListener('click', () => {
+    game.useHelp();
+  });
 
   paint();
 }
