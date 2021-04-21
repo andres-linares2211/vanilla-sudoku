@@ -44,8 +44,17 @@ function paint() {
     addHighlighters(cellElement, cellElements, i);
 
     input.addEventListener('keydown', (event) => {
-      input.value = event.key === 'Backspace' ? '' : event.key;
       input.blur();
+
+      const isNumeric = /^\d+$/.test(event.key);
+      const isBackspace = event.key === 'Backspace';
+
+      if (!isNumeric && !isBackspace) {
+        input.value = cell.value ? cell.value.toString() : '';
+        return;
+      }
+
+      input.value = event.key === 'Backspace' ? '' : event.key;
       input.dispatchEvent(new Event('change'));
     });
 
