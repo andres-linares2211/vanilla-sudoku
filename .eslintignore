@@ -4,3 +4,4 @@ dist/**
 # Files that use module.exports
 .eslintrc.js
 commitlint.config.js
+webpack.config.js

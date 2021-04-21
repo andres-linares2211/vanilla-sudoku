@@ -22,6 +22,16 @@ function showHighlight(cells: HTMLDivElement[], cell: HTMLDivElement, index: num
   cellsInColumn.forEach((cell) => cell.classList.add('highlight'));
   cellsInRow.forEach((cell) => cell.classList.add('highlight'));
   cell.classList.add('highlight--main');
+
+  const cellValue = cell.querySelector('input')?.value;
+  cellValue && highlightSameValueCells(cellValue, cells);
+}
+
+function highlightSameValueCells(value: string, cells: HTMLDivElement[]) {
+  if (value === '') return;
+
+  const sameValueCells = cells.filter((cell) => cell.querySelector('input')?.value === value);
+  sameValueCells.forEach((cell) => cell.classList.add('highlight--same'));
 }
 
 function getCells(cells: HTMLDivElement[], index: number) {
@@ -37,5 +47,5 @@ function getCells(cells: HTMLDivElement[], index: number) {
 }
 
 function hideHighligt(cells: HTMLDivElement[]) {
-  cells.forEach((cell) => cell.classList.remove('highlight', 'highlight--main'));
+  cells.forEach((cell) => cell.classList.remove('highlight', 'highlight--main', 'highlight--same'));
 }
