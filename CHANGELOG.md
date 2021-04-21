@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added chronometer.
 - Highlighter for cells with same value
 - Listener for contextmenu (right click) to toggle the pencil
+- Help Button to set a single value in the board
 
 ### Fixed
 
