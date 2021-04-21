@@ -20,6 +20,13 @@ initialize();
 
 difficultySelector.addEventListener('change', () => initialize());
 
+window.addEventListener('contextmenu', (event) => {
+  if (!pencilCheckbox) return;
+
+  pencilCheckbox.checked = !pencilCheckbox.checked;
+  event.preventDefault();
+});
+
 function initialize() {
   const level = difficultySelector.value as difficulty;
   game = new Board(() => paint(), level);
