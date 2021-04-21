@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.0] 2021-04-20
+
 ### Added
 
 - Added script to translate elements that use the attribute `data-translate`.
