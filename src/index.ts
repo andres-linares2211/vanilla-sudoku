@@ -1,4 +1,3 @@
-import '../styles/index.scss';
 import './ui/Translator';
 import { Board } from './game/Board';
 import { addHighlighters } from './ui/Highlighter';

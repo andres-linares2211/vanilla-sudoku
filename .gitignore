@@ -1,3 +1,7 @@
 node_modules/
+
 dist/bundle.js
+dist/*.bundle.js
+dist/styles/
+
 styles/*.css*

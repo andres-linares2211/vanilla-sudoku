@@ -1,9 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
   devtool: 'eval-source-map',
-  entry: './src/index.ts',
+  entry: [path.resolve(__dirname, 'src/index.ts'), path.resolve(__dirname, 'styles/index.scss')],
   module: {
     rules: [
       {
@@ -13,7 +12,11 @@ module.exports = {
       },
       {
         test: /\.(scss|css)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        include: [path.resolve(__dirname, 'styles')],
+        use: [
+          { loader: 'file-loader', options: { outputPath: 'styles/', name: '[name].css' } },
+          'sass-loader',
+        ],
       },
     ],
   },
