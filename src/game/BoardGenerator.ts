@@ -2,7 +2,7 @@ import { Cell } from './Cell';
 import { Finder } from './Finder';
 import { Judge } from './Judge';
 import { SmartPlayer } from './SmartPlayer';
-import { cloneDeep } from 'lodash-es';
+import cloneDeep from 'lodash.clonedeep';
 
 export type difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EXPERT';
 const BUSY_CELLS_DIFFICULTY_PERCENTAGE: { [key in difficulty]: number } = {
