@@ -1,4 +1,7 @@
 node_modules/
-dist/i18n*
+
 dist/bundle.js
+dist/*.bundle.js
+dist/styles/
+
 styles/*.css*
