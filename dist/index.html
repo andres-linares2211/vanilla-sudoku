@@ -23,13 +23,52 @@
 
       <div id="root" class="board"></div>
 
-      <div class="pencil-checkbox">
-        <input id="pencilCheckbox" type="checkbox" />
+      <div class="flex mt-2.5">
+        <div class="pencil-checkbox mr-2">
+          <input id="pencilCheckbox" type="checkbox" />
 
-        <label for="pencilCheckbox">
+          <label for="pencilCheckbox" class="button--round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-pencil"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#2c3e50"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+              <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+            </svg>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-writing"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#2c3e50"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M20 17v-12c0 -1.121 -.879 -2 -2 -2s-2 .879 -2 2v12l2 2l2 -2z" />
+              <path d="M16 7h4" />
+              <path d="M18 19h-13a2 2 0 1 1 0 -4h4a2 2 0 1 0 0 -4h-3" />
+            </svg>
+          </label>
+        </div>
+
+        <button id="helpButton" class="button--round">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-pencil"
+            class="icon icon-tabler icon-tabler-lifebuoy"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -40,28 +79,14 @@
             stroke-linejoin="round"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="12" cy="12" r="9" />
+            <line x1="15" y1="15" x2="18.35" y2="18.35" />
+            <line x1="9" y1="15" x2="5.65" y2="18.35" />
+            <line x1="5.65" y1="5.65" x2="9" y2="9" />
+            <line x1="18.35" y1="5.65" x2="15" y2="9" />
           </svg>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-writing"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M20 17v-12c0 -1.121 -.879 -2 -2 -2s-2 .879 -2 2v12l2 2l2 -2z" />
-            <path d="M16 7h4" />
-            <path d="M18 19h-13a2 2 0 1 1 0 -4h4a2 2 0 1 0 0 -4h-3" />
-          </svg>
-        </label>
+        </button>
       </div>
     </div>
     <script src="bundle.js"></script>
