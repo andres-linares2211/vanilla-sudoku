@@ -28,6 +28,10 @@ window.addEventListener('contextmenu', (event) => {
   event.preventDefault();
 });
 
+helpButton?.addEventListener('click', () => {
+  game.useHelp();
+});
+
 function initialize() {
   const level = difficultySelector.value as difficulty;
   game = new Board(() => paint(), level);
@@ -35,10 +39,6 @@ function initialize() {
 
   if (chronometer) chronometer.stop();
   chronometer = startChronometer();
-
-  helpButton?.addEventListener('click', () => {
-    game.useHelp();
-  });
 
   paint();
 }
