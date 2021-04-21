@@ -1,6 +1,7 @@
 import { BoardGenerator, difficulty } from './BoardGenerator';
 import { Cell } from './Cell';
 import { Finder } from './Finder';
+import { SmartPlayer } from './SmartPlayer';
 
 export class Board {
   private difficulty: difficulty;
@@ -29,6 +30,15 @@ export class Board {
     this.onUpdate();
   }
 
+  useHelp(): void {
+    const smartPlayer = new SmartPlayer(this.cells);
+    smartPlayer.setSingleValue();
+
+    this.revalidateCells();
+    this.checkAutocomplete();
+    this.onUpdate();
+  }
+
   private checkAutocomplete() {
     if (this.cells.some((cell) => cell.error)) return;
 
@@ -40,11 +50,8 @@ export class Board {
     );
 
     if (solutionsPerCell.every((solutions) => solutions.length === 1)) {
-      console.log('starting autocomplete!');
-
       let index = 0;
       const interval = setInterval(() => {
-        console.log(index, emptyCells.length);
         if (index + 1 > emptyCells.length) {
           clearInterval(interval);
           return;

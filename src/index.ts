@@ -15,6 +15,7 @@ let chronometer: Chronometer | null;
 const app = document.getElementById('root')!;
 const pencilCheckbox = document.getElementById('pencilCheckbox')! as HTMLInputElement;
 const difficultySelector = document.getElementById('difficultySelector')! as HTMLSelectElement;
+const helpButton = document.getElementById('helpButton');
 
 initialize();
 
@@ -25,6 +26,10 @@ window.addEventListener('contextmenu', (event) => {
 
   pencilCheckbox.checked = !pencilCheckbox.checked;
   event.preventDefault();
+});
+
+helpButton?.addEventListener('click', () => {
+  game.useHelp();
 });
 
 function initialize() {
